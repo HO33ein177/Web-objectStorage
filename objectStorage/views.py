@@ -1,10 +1,15 @@
 import json
 
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.models import User
+from django.template.loader import render_to_string
+from django.utils.encoding import force_bytes, force_str
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.views.decorators.csrf import csrf_exempt
-
+from django.core.mail import send_mail
 
 @csrf_exempt
 def SignUp(request):
@@ -24,7 +29,19 @@ def SignUp(request):
                 return JsonResponse({'error': 'User with that username already exists'}, status=400)
 
             new_user = User.objects.create_user(username=username, email=email, password=password)
+            new_user.is_active = False
             new_user.save()
+
+            current_site = get_current_site(request)
+            subject = 'Activate your account.'
+            message = render_to_string('account_activation_email.html', {
+                'user': new_user,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(new_user.pk)),
+                'token': default_token_generator.make_token(new_user),
+            })
+            send_mail(subject,message, 'hoseinbm138084@yahoo.com', [email])
+
             return JsonResponse({'message': 'User created ee successfully'}, status=201)
             # return redirect('MainPage')
         except json.JSONDecodeError:
@@ -33,6 +50,21 @@ def SignUp(request):
             return JsonResponse({'error': str(e)}, status=400)
 
     return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+
+def activate(request, uidb64, token):
+    try:
+        uid = force_str(urlsafe_base64_decode(uidb64))
+        user = User.objects.get(pk=uid)
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        user = None
+
+    if user is not None and default_token_generator.check_token(user, token):
+        user.is_active = True
+        user.save()
+        return JsonResponse({'message': 'Email confirmed successfully.'})
+    else:
+        return JsonResponse({'error': 'Invalid activation link.'}, status=400)
 
 
 @csrf_exempt

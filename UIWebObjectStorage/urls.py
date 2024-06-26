@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('signup/', SignUp, name='signup'),
     path('login/', Login, name='login'),
+    path('activate/<uidb64>/<token>/', activate, name='activate'),
 
 ]
