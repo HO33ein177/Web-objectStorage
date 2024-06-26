@@ -17,11 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from objectStorage.views import *
+from django.conf.urls.static import static
+from UIWebObjectStorage import settings
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('signup/', SignUp, name='signup'),
-    path('login/', Login, name='login'),
-    path('activate/<uidb64>/<token>/', activate, name='activate'),
+                  path('admin/', admin.site.urls),
+                  path('', home, name='home'),
+                  path('signup/', SignUp, name='signup'),
+                  path('login/', Login, name='login'),
+                  path('activate/<uidb64>/<token>/', activate, name='activate'),
+                  path('delete/<int:pk>/', delete_row, name='delete_row'),
 
-]
+              ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
