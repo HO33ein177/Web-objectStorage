@@ -335,7 +335,7 @@ h5{
 #kadr1{
     width: 740px;
     height: 540px;
-    /* background-color: aquamarine; */
+    background-color: #e0d8d8;
     margin: auto ;
     margin-top: 60px;
     border-radius: 25px;
@@ -693,7 +693,7 @@ width: 25px;
     font-family: poppinsm;
     font-size: 8px;
     margin-left: 60px;
-    color: a3b2c7;
+    color: #a3b2c7;
 }
 
 #boxbpaeen{

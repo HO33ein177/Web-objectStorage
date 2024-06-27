@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 from django.db import models
-from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.contrib.auth.models import AbstractUser, BaseUserManager, User
 from .validator import *
 from django.core.validators import MinLengthValidator
 from django.db.models import UniqueConstraint
@@ -26,4 +26,10 @@ from django.db.models.functions import Lower
 #         max_length=100, blank=False
 #     )
 
-
+# class File(models.Model):
+#     name = models.CharField(max_length=120)
+#     size = models.IntegerField(validators=[MinLengthValidator(3)])
+#     icon = models.ImageField(upload_to='icons')
+#     owner = models.ForeignKey(User, on_delete=models.CASCADE)
+#
+#

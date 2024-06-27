@@ -106,8 +106,11 @@ function email(){
 }
 var emailSent = null
 
-
-
+const loginButton = document.getElementById('loginbtn')
+loginButton.addEventListener("click",()=>{
+    emailModal.style.display = 'none'
+    loginModal.style.display = 'block'
+})
 
 document.addEventListener('DOMContentLoaded', (event) => {
     console.log('DOM fully loaded and parsed');

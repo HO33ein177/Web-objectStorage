@@ -1,5 +1,4 @@
 import json
-
 from django.contrib.auth import authenticate, login, get_user_model
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
@@ -65,7 +64,7 @@ def activate(request, uidb64, token):
     if user is not None and default_token_generator.check_token(user, token):
         user.is_active = True
         user.save()
-        return render(request, 'html.html')
+        return render(request, 'View List.html')
         # return JsonResponse({'message': 'Email confirmed successfully.'})
     else:
         return JsonResponse({'error': 'Invalid activation link.'}, status=400)
@@ -135,3 +134,17 @@ def delete_row(request, pk):
             return JsonResponse({'error': str(e)}, status=400)
     else:
         return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+
+# def download_file(request, pk):
+#     if request.method == 'POST':
+#
+
+def delete_file(request, pk):
+    if request.method == 'POST':
+        try:
+          obj = get_object_or_404(User, pk=pk)
+          obj.delete()
+          return JsonResponse({'message': 'File deleted successfully'}, status=200)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
