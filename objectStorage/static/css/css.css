@@ -583,7 +583,7 @@ width: 25px;
     border-radius: 10px;
     background-color: #fff;
     margin-left: 480px;
-    display: none;
+    /*display: none;*/
 }
 #addpeapelbox{
     width: 270px;

@@ -180,6 +180,7 @@ def check_bucket_list(request):
 
     return JsonResponse({'error': 'Unhandled case'}, status=500)
 
+
 @csrf_exempt
 def delete_bucket(request):
     logging.basicConfig(level=logging.INFO)
@@ -195,7 +196,7 @@ def delete_bucket(request):
         logging.error(exc)
     else:
         try:
-            bucket_name = 'sample-bucket-name'
+            bucket_name = 'vaultTest'
             bucket = s3_resource.Bucket(bucket_name)
             bucket.delete()
         except ClientError as exc:
@@ -264,11 +265,15 @@ def change_bucket_access_policy(request):
         except ClientError as e:
             logging.error(e)
 
+
 @csrf_exempt
 def object_upload_in_bucket(request):
     # Configure logging
     logging.basicConfig(level=logging.INFO)
-
+    data = json.loads(request.body.decode('utf-8'))  # Ensure proper decoding of request body
+    bucket_name = data.get('bucket_name')
+    filePath = data.get('file_path')
+    file_name = data.get('file_name')
     try:
         s3_resource = boto3.resource(
             's3',
@@ -281,9 +286,9 @@ def object_upload_in_bucket(request):
         logging.error(exc)
     else:
         try:
-            bucket = s3_resource.Bucket('vault142')
-            file_path = 'C:/Users/Hosein/Desktop/blue.jpg'
-            object_name = 'blue.jpg'
+            bucket = s3_resource.Bucket(bucket_name)
+            file_path = filePath
+            object_name = file_name
 
             with open(file_path, "rb") as file:
                 bucket.put_object(
@@ -296,8 +301,6 @@ def object_upload_in_bucket(request):
 
 
 def object_multipart_upload_in_bucket(request):
-
-
     # Constant variables
     KB = 1024
     MB = KB * KB
@@ -377,6 +380,7 @@ def object_multipart_upload_in_bucket(request):
 @csrf_exempt
 def object_download_in_bucket(request):
     logging.basicConfig(level=logging.INFO)
+    data = json.loads(request.body.decode('utf-8'))  # Ensure proper decoding of request body
 
     try:
         s3_resource = boto3.resource(
@@ -433,18 +437,21 @@ def get_object_list_from_bucket(request):
         except ClientError as e:
             logging.error(e)
 
-
+@csrf_exempt
 def object_delete_in_bucket(request):
     import boto3
     import logging
     from botocore.exceptions import ClientError
 
     logging.basicConfig(level=logging.INFO)
+    data = json.loads(request.body.decode('utf-8'))  # Ensure proper decoding of request body
+    bucketName = data.get('bucket_name')
+    fileName = data.get('file_name')
 
     try:
         s3_resource = boto3.resource(
             's3',
-            endpoint_url='endpoint_url',
+            endpoint_url='https://vault141.s3.ir-thr-at1.arvanstorage.ir',
             aws_access_key_id='c75bdfdb-a936-412e-a356-ae1f7ad82aee',
             aws_secret_access_key='1c7d029f48b2f93a720272da0557732be8bcf108'
         )
@@ -453,10 +460,10 @@ def object_delete_in_bucket(request):
     else:
         try:
             # bucket
-            bucket_name = 'sample_bucket_name'
-            object_name = 'object_name.txt'
+            bucket_name = bucketName
+            object_name = fileName
 
-            bucket = s3_resource.Bucket('bucket_name')
+            bucket = s3_resource.Bucket(bucket_name)
             object = bucket.Object(object_name)
 
             response = object.delete(

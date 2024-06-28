@@ -1,4 +1,6 @@
 import json
+import re
+
 from django.contrib.auth import authenticate, login, get_user_model
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
@@ -78,7 +80,9 @@ def Login(request):
     if request.method == 'POST':
         try:
             data = json.loads(request.body.decode('utf-8'))  # Ensure proper decoding of request body
-            if '@' in data.get('text', ''):
+            text = data.get('text')
+            email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+            if re.match(email_regex, text):
                 email = data.get('text')
                 password = data.get('password')
 
@@ -156,3 +160,5 @@ def delete_file(request, pk):
 # Arvan cloud Authentication and Connection
 
 
+def View_List(request):
+    return render(request, 'View List.html')

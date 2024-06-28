@@ -74,7 +74,7 @@ document.getElementById('inputPL').addEventListener('input',function(){
 //  وقتی روی چشم زدیم رمز رویت شود و یا مخفی شود
 document.getElementById('hide3').addEventListener('click',function(){
     const pasfild = document.getElementById('inputPL');
-    if(pasfild.type == "password"){
+    if(pasfild.type === "password"){
         pasfild.type = "text";
     }
     else{
@@ -139,6 +139,55 @@ document.addEventListener('DOMContentLoaded', (event) => {
         console.log('Sending data to server...');
 
         fetch('/signup/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => {
+            if (!response.ok) {
+                return response.json().then(err => { throw err });
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Success:', data);
+            // Handle success response if needed
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    });
+});
+
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    console.log('DOM fully loaded and parsed');
+
+    const button = document.getElementById('loginbtn2');
+    console.log('Button:', button);
+
+    const textInput = document.getElementById('text');
+    const passwordInput = document.getElementById('inputPL');
+
+    button.addEventListener('click', (event) => {
+        event.preventDefault();  // Prevent the default button click behavior
+
+        const data = {
+            text: textInput.value,
+            password: passwordInput.value
+        };
+        // emailModal.style.display = 'block';
+        // registerModal.style.display = 'none';
+        emailSent = textInput.value
+        const emailSent1 = document.getElementById('emailSent')
+        emailSent1.innerHTML = emailSent
+
+        console.log('Sending data to server...');
+
+        fetch('/login/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
