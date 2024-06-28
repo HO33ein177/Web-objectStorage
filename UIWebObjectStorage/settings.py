@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    "objectStorage.apps.ObjectstorageConfig"
+    "objectStorage.apps.ObjectstorageConfig",
+    "arvanBucket.apps.ArvanbucketConfig"
 ]
 
 MIDDLEWARE = [

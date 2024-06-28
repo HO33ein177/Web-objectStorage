@@ -12,7 +12,10 @@ from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect
 from django.http import JsonResponse
 from django.contrib.auth.models import User
-
+import boto3
+import logging
+import logging
+from botocore.exceptions import ClientError
 
 @csrf_exempt
 def SignUp(request):
@@ -64,7 +67,7 @@ def activate(request, uidb64, token):
     if user is not None and default_token_generator.check_token(user, token):
         user.is_active = True
         user.save()
-        return render(request, 'View List.html')
+        return render(request, 'View List.html', {'username': user.username})
         # return JsonResponse({'message': 'Email confirmed successfully.'})
     else:
         return JsonResponse({'error': 'Invalid activation link.'}, status=400)
@@ -143,8 +146,13 @@ def delete_row(request, pk):
 def delete_file(request, pk):
     if request.method == 'POST':
         try:
-          obj = get_object_or_404(User, pk=pk)
-          obj.delete()
-          return JsonResponse({'message': 'File deleted successfully'}, status=200)
+            obj = get_object_or_404(User, pk=pk)
+            obj.delete()
+            return JsonResponse({'message': 'File deleted successfully'}, status=200)
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=400)
+
+
+# Arvan cloud Authentication and Connection
+
+

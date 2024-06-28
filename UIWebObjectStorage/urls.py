@@ -19,6 +19,7 @@ from django.urls import path
 from objectStorage.views import *
 from django.conf.urls.static import static
 from UIWebObjectStorage import settings
+from arvanBucket.views import *
 
 urlpatterns = [
                   path('admin/', admin.site.urls),
@@ -27,5 +28,14 @@ urlpatterns = [
                   path('login/', Login, name='login'),
                   path('activate/<uidb64>/<token>/', activate, name='activate'),
                   path('delete/<int:pk>/', delete_row, name='delete_row'),
-
+                  path('authenticate_bucket/', authenticate_bucket, name='create_bucket'),
+                  path('create_bucket/', create_bucket, name='create_bucket'),
+                  path('delete_bucket/', delete_bucket, name='delete_bucket'),
+                  path('check_bucket/', check_bucket_entity, name='check_bucket'),
+                  path('get_bucket_list/', check_bucket_list, name='get_bucket_list'),
+                  path('get_bucket_policy/', get_bucket_policy, name='get_bucket_policy'),
+                  path('upload/',object_upload_in_bucket, name='object_upload_in_bucket'),
+                  path('change_bucket_access_policy/', change_bucket_access_policy, name='change_bucket_access_policy'),
+                  path('download/', object_download_in_bucket, name='object_download_in_bucket'),
+                  path('init/',init_bucket, name='init_bucket'),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
