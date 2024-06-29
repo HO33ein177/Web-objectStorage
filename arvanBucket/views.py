@@ -389,32 +389,39 @@ def object_multipart_upload_in_bucket(request):
 
 @csrf_exempt
 def object_download_in_bucket(request):
-    logging.basicConfig(level=logging.INFO)
-    data = json.loads(request.body.decode('utf-8'))  # Ensure proper decoding of request body
+    if request.method == 'POST':
+        logging.basicConfig(level=logging.INFO)
+        data = json.loads(request.body.decode('utf-8'))  # Ensure proper decoding of request body
 
-    try:
-        s3_resource = boto3.resource(
-            's3',
-            endpoint_url='https://141vault141.s3.ir-tbz-sh1.arvanstorage.ir',
-            aws_access_key_id='c75bdfdb-a936-412e-a356-ae1f7ad82aee',
-            aws_secret_access_key='1c7d029f48b2f93a720272da0557732be8bcf108'
-        )
-    except Exception as exc:
-        logging.error(exc)
-    else:
+        bucket_name = data.get('bucket_name')
+        file_name = data.get('file_name')
+
+        # print(f"Received file: {file_name}, bucket_name: {bucket_name}")
+
         try:
-            # bucket
-            bucket = s3_resource.Bucket('vault142')
-
-            object_name = 'finals.png'
-            download_path = 'D:/Storage/finals.png'
-
-            bucket.download_file(
-                object_name,
-                download_path
+            s3_resource = boto3.resource(
+                's3',
+                endpoint_url='https://141vault141.s3.ir-tbz-sh1.arvanstorage.ir',
+                aws_access_key_id='c75bdfdb-a936-412e-a356-ae1f7ad82aee',
+                aws_secret_access_key='1c7d029f48b2f93a720272da0557732be8bcf108'
             )
-        except ClientError as e:
-            logging.error(e)
+        except Exception as exc:
+            logging.error(exc)
+        else:
+            try:
+                # bucket
+                bucket = s3_resource.Bucket('PersonalVault')
+
+                object_name = file_name
+                base_dir = 'D:/Storage'
+                download_path = os.path.join(base_dir, file_name)
+
+                bucket.download_file(
+                    object_name,
+                    download_path
+                )
+            except ClientError as e:
+                logging.error(e)
 
 
 def get_object_list_from_bucket(request):

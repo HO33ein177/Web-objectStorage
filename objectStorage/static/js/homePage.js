@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         console.log("Sending files");
         const formData = new FormData();
-        formData.append('bucket_name', 'fkljadsgfkfjsdfkl');
+        formData.append('bucket_name', 'PersonalVault');
         formData.append('file_name', file.name);
         formData.append('file_location', file.webkitRelativePath || file.name);
         fetch('/upload/', {
@@ -106,3 +106,23 @@ let hamberMenu = document.getElementById('hamberMenu')
 function threeButtonMenu(){
     hamberMenu.style.display = 'block';
 }
+
+let item = document.getElementById('item');
+let items =document.getElementsByClassName('objectItem')
+console.log(items)
+function openMenu(){
+        hamberMenu.style.display = 'block';
+
+}
+
+item.addEventListener('contextmenu', rightClick);
+
+function rightClick(event){
+    event.preventDefault();
+    hamberMenu.style.display = 'block';
+}
+
+let closeHamMenu = document.getElementById('menuName')
+closeHamMenu.addEventListener('click',()=>{
+    hamberMenu.style.display = 'none';
+})
