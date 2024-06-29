@@ -21,7 +21,7 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-attachment: fixed;
+    /*background-attachment: fixed;*/
 }
 
 #kadr{
@@ -431,6 +431,7 @@ h5{
 #bargiri{
     /* border: solid 1px #ff0000; */
     position: absolute;
+    top: -5px;
     margin-top: 19px;
     width: 15px;
     margin-left: 88px;
@@ -612,13 +613,14 @@ width: 25px;
     border-radius: 10px;
     background-color: #fff;
     margin-left: 480px;
-    /*display: none;*/
+    display: none;
 }
 #addpeapelbox{
     width: 270px;
     height: 380px;
     /* border: solid 1px #ff0000; */
     position: absolute;
+    left: 200px;
     margin: auto;
     background-color: #ffffff;
     border-radius: 20px;

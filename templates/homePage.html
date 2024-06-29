@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documents view list</title>
     <link rel="stylesheet" href="{% static 'css/css.css' %}" >
+    <link rel="stylesheet" href="{% static 'css/hamburgerMenu.css' %}" />
     <script defer="true" src="{% static 'js/homePage.js' %}"></script>
 </head>
 <body>
@@ -95,7 +96,7 @@
                 <div id="boxbala">
 
                     <div id="back">
-                        <svg id="backlogo" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg id="backlogo" onclick="closeAddPeople()" width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M8.77315 5.43555L3.20898 10.9997L8.77315 16.5639" stroke="#333F4E" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M18.7927 11H3.36523" stroke="#333F4E" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
@@ -176,9 +177,9 @@
 
                 </div>
                 <div id="boxbpaeen">
-                    <img src="/image/peo2.png" id="pep_one">
-                    <img src="/image/peo1.png"id="pep_two">
-                    <img src="/image/peo2.png"id="pep_two">
+                    <img src="{% static 'media/image/peo2.png' %}" id="pep_one">
+                    <img src="{% static 'media/image/peo1.png' %}" id="pep_two">
+                    <img src="{% static 'media/image/peo2.png' %}" id="pep_two">
                     <button id="continue">Continue</button>
                 </div>
             </div>
@@ -190,7 +191,21 @@
 
             <div id="item">
                 <div class="images">
-                    <img src="/image/figma.png" id="images2">
+                    <img src="{% static 'media/image/figma.png' %}" id="images2">
+                </div>
+                <div id="names">App School.fig
+                </div>
+                <div id="etelaat">10 GB - 10:09pm,10 Oct</div>
+                <svg id="hamber" onclick="threeButtonMenu()" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.834 20.5833C10.834 21.775 11.809 22.75 13.0007 22.75C14.1923 22.75 15.1673 21.775 15.1673 20.5833C15.1673 19.3917 14.1923 18.4167 13.0007 18.4167C11.809 18.4167 10.834 19.3917 10.834 20.5833Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                    <path d="M10.834 5.41732C10.834 6.60898 11.809 7.58398 13.0007 7.58398C14.1923 7.58398 15.1673 6.60898 15.1673 5.41732C15.1673 4.22565 14.1923 3.25065 13.0007 3.25065C11.809 3.25065 10.834 4.22565 10.834 5.41732Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                    <path d="M10.834 12.9993C10.834 14.191 11.809 15.166 13.0007 15.166C14.1923 15.166 15.1673 14.191 15.1673 12.9993C15.1673 11.8077 14.1923 10.8327 13.0007 10.8327C11.809 10.8327 10.834 11.8077 10.834 12.9993Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                </svg>    
+            </div>
+
+            <div id="item">
+                <div class="images">
+                    <img src="{% static 'media/image/figma.png' %}" id="images2">
                 </div>
                 <div id="names">App School.fig
                 </div>
@@ -204,7 +219,7 @@
 
             <div id="item">
                 <div class="images">
-                    <img src="/image/figma.png" id="images2">
+                    <img src="{% static 'media/image/figma.png' %}" id="images2">
                 </div>
                 <div id="names">App School.fig
                 </div>
@@ -218,192 +233,7 @@
 
             <div id="item">
                 <div class="images">
-                    <img src="/image/figma.png" id="images2">
-                </div>
-                <div id="names">App School.fig
-                </div>
-                <div id="etelaat">10 GB - 10:09pm,10 Oct</div>
-                <svg id="hamber" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10.834 20.5833C10.834 21.775 11.809 22.75 13.0007 22.75C14.1923 22.75 15.1673 21.775 15.1673 20.5833C15.1673 19.3917 14.1923 18.4167 13.0007 18.4167C11.809 18.4167 10.834 19.3917 10.834 20.5833Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                    <path d="M10.834 5.41732C10.834 6.60898 11.809 7.58398 13.0007 7.58398C14.1923 7.58398 15.1673 6.60898 15.1673 5.41732C15.1673 4.22565 14.1923 3.25065 13.0007 3.25065C11.809 3.25065 10.834 4.22565 10.834 5.41732Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                    <path d="M10.834 12.9993C10.834 14.191 11.809 15.166 13.0007 15.166C14.1923 15.166 15.1673 14.191 15.1673 12.9993C15.1673 11.8077 14.1923 10.8327 13.0007 10.8327C11.809 10.8327 10.834 11.8077 10.834 12.9993Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                </svg>    
-            </div>
-
-            <div id="item">
-                <div class="images">
-                    <img src="/image/figma.png" id="images2">
-                </div>
-                <div id="names">App School.fig
-                </div>
-                <div id="etelaat">10 GB - 10:09pm,10 Oct</div>
-                <svg id="hamber" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10.834 20.5833C10.834 21.775 11.809 22.75 13.0007 22.75C14.1923 22.75 15.1673 21.775 15.1673 20.5833C15.1673 19.3917 14.1923 18.4167 13.0007 18.4167C11.809 18.4167 10.834 19.3917 10.834 20.5833Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                    <path d="M10.834 5.41732C10.834 6.60898 11.809 7.58398 13.0007 7.58398C14.1923 7.58398 15.1673 6.60898 15.1673 5.41732C15.1673 4.22565 14.1923 3.25065 13.0007 3.25065C11.809 3.25065 10.834 4.22565 10.834 5.41732Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                    <path d="M10.834 12.9993C10.834 14.191 11.809 15.166 13.0007 15.166C14.1923 15.166 15.1673 14.191 15.1673 12.9993C15.1673 11.8077 14.1923 10.8327 13.0007 10.8327C11.809 10.8327 10.834 11.8077 10.834 12.9993Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                </svg>    
-            </div>
-
-
-
-            <div id="item">
-                <div class="images">
-                    <img src="/image/figma.png" id="images2">
-                </div>
-                <div id="names">App School.fig
-                </div>
-                <div id="etelaat">10 GB - 10:09pm,10 Oct</div>
-                <svg id="hamber" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10.834 20.5833C10.834 21.775 11.809 22.75 13.0007 22.75C14.1923 22.75 15.1673 21.775 15.1673 20.5833C15.1673 19.3917 14.1923 18.4167 13.0007 18.4167C11.809 18.4167 10.834 19.3917 10.834 20.5833Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                    <path d="M10.834 5.41732C10.834 6.60898 11.809 7.58398 13.0007 7.58398C14.1923 7.58398 15.1673 6.60898 15.1673 5.41732C15.1673 4.22565 14.1923 3.25065 13.0007 3.25065C11.809 3.25065 10.834 4.22565 10.834 5.41732Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                    <path d="M10.834 12.9993C10.834 14.191 11.809 15.166 13.0007 15.166C14.1923 15.166 15.1673 14.191 15.1673 12.9993C15.1673 11.8077 14.1923 10.8327 13.0007 10.8327C11.809 10.8327 10.834 11.8077 10.834 12.9993Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                </svg>    
-            </div>
-
-            <div id="item">
-                <div class="images">
-                    <img src="/image/figma.png" id="images2">
-                </div>
-                <div id="names">App School.fig
-                </div>
-                <div id="etelaat">10 GB - 10:09pm,10 Oct</div>
-                <svg id="hamber" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10.834 20.5833C10.834 21.775 11.809 22.75 13.0007 22.75C14.1923 22.75 15.1673 21.775 15.1673 20.5833C15.1673 19.3917 14.1923 18.4167 13.0007 18.4167C11.809 18.4167 10.834 19.3917 10.834 20.5833Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                    <path d="M10.834 5.41732C10.834 6.60898 11.809 7.58398 13.0007 7.58398C14.1923 7.58398 15.1673 6.60898 15.1673 5.41732C15.1673 4.22565 14.1923 3.25065 13.0007 3.25065C11.809 3.25065 10.834 4.22565 10.834 5.41732Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                    <path d="M10.834 12.9993C10.834 14.191 11.809 15.166 13.0007 15.166C14.1923 15.166 15.1673 14.191 15.1673 12.9993C15.1673 11.8077 14.1923 10.8327 13.0007 10.8327C11.809 10.8327 10.834 11.8077 10.834 12.9993Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                </svg>    
-            </div>
-
-            <div id="item">
-                <div class="images">
-                    <img src="/image/figma.png" id="images2">
-                </div>
-                <div id="names">App School.fig
-                </div>
-                <div id="etelaat">10 GB - 10:09pm,10 Oct</div>
-                <svg id="hamber" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10.834 20.5833C10.834 21.775 11.809 22.75 13.0007 22.75C14.1923 22.75 15.1673 21.775 15.1673 20.5833C15.1673 19.3917 14.1923 18.4167 13.0007 18.4167C11.809 18.4167 10.834 19.3917 10.834 20.5833Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                    <path d="M10.834 5.41732C10.834 6.60898 11.809 7.58398 13.0007 7.58398C14.1923 7.58398 15.1673 6.60898 15.1673 5.41732C15.1673 4.22565 14.1923 3.25065 13.0007 3.25065C11.809 3.25065 10.834 4.22565 10.834 5.41732Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                    <path d="M10.834 12.9993C10.834 14.191 11.809 15.166 13.0007 15.166C14.1923 15.166 15.1673 14.191 15.1673 12.9993C15.1673 11.8077 14.1923 10.8327 13.0007 10.8327C11.809 10.8327 10.834 11.8077 10.834 12.9993Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                </svg>    
-            </div>
-
-            <div id="item">
-                <div class="images">
-                    <img src="/image/figma.png" id="images2">
-                </div>
-                <div id="names">App School.fig
-                </div>
-                <div id="etelaat">10 GB - 10:09pm,10 Oct</div>
-                <svg id="hamber" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10.834 20.5833C10.834 21.775 11.809 22.75 13.0007 22.75C14.1923 22.75 15.1673 21.775 15.1673 20.5833C15.1673 19.3917 14.1923 18.4167 13.0007 18.4167C11.809 18.4167 10.834 19.3917 10.834 20.5833Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                    <path d="M10.834 5.41732C10.834 6.60898 11.809 7.58398 13.0007 7.58398C14.1923 7.58398 15.1673 6.60898 15.1673 5.41732C15.1673 4.22565 14.1923 3.25065 13.0007 3.25065C11.809 3.25065 10.834 4.22565 10.834 5.41732Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                    <path d="M10.834 12.9993C10.834 14.191 11.809 15.166 13.0007 15.166C14.1923 15.166 15.1673 14.191 15.1673 12.9993C15.1673 11.8077 14.1923 10.8327 13.0007 10.8327C11.809 10.8327 10.834 11.8077 10.834 12.9993Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                </svg>    
-            </div>
-
-
-            <div id="item">
-                <div class="images">
-                    <img src="/image/figma.png" id="images2">
-                </div>
-                <div id="names">App School.fig
-                </div>
-                <div id="etelaat">10 GB - 10:09pm,10 Oct</div>
-                <svg id="hamber" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10.834 20.5833C10.834 21.775 11.809 22.75 13.0007 22.75C14.1923 22.75 15.1673 21.775 15.1673 20.5833C15.1673 19.3917 14.1923 18.4167 13.0007 18.4167C11.809 18.4167 10.834 19.3917 10.834 20.5833Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                    <path d="M10.834 5.41732C10.834 6.60898 11.809 7.58398 13.0007 7.58398C14.1923 7.58398 15.1673 6.60898 15.1673 5.41732C15.1673 4.22565 14.1923 3.25065 13.0007 3.25065C11.809 3.25065 10.834 4.22565 10.834 5.41732Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                    <path d="M10.834 12.9993C10.834 14.191 11.809 15.166 13.0007 15.166C14.1923 15.166 15.1673 14.191 15.1673 12.9993C15.1673 11.8077 14.1923 10.8327 13.0007 10.8327C11.809 10.8327 10.834 11.8077 10.834 12.9993Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                </svg>    
-            </div>
-
-            <div id="item">
-                <div class="images">
-                    <img src="/image/figma.png" id="images2">
-                </div>
-                <div id="names">App School.fig
-                </div>
-                <div id="etelaat">10 GB - 10:09pm,10 Oct</div>
-                <svg id="hamber" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10.834 20.5833C10.834 21.775 11.809 22.75 13.0007 22.75C14.1923 22.75 15.1673 21.775 15.1673 20.5833C15.1673 19.3917 14.1923 18.4167 13.0007 18.4167C11.809 18.4167 10.834 19.3917 10.834 20.5833Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                    <path d="M10.834 5.41732C10.834 6.60898 11.809 7.58398 13.0007 7.58398C14.1923 7.58398 15.1673 6.60898 15.1673 5.41732C15.1673 4.22565 14.1923 3.25065 13.0007 3.25065C11.809 3.25065 10.834 4.22565 10.834 5.41732Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                    <path d="M10.834 12.9993C10.834 14.191 11.809 15.166 13.0007 15.166C14.1923 15.166 15.1673 14.191 15.1673 12.9993C15.1673 11.8077 14.1923 10.8327 13.0007 10.8327C11.809 10.8327 10.834 11.8077 10.834 12.9993Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                </svg>    
-            </div>
-
-            <div id="item">
-                <div class="images">
-                    <img src="/image/figma.png" id="images2">
-                </div>
-                <div id="names">App School.fig
-                </div>
-                <div id="etelaat">10 GB - 10:09pm,10 Oct</div>
-                <svg id="hamber" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10.834 20.5833C10.834 21.775 11.809 22.75 13.0007 22.75C14.1923 22.75 15.1673 21.775 15.1673 20.5833C15.1673 19.3917 14.1923 18.4167 13.0007 18.4167C11.809 18.4167 10.834 19.3917 10.834 20.5833Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                    <path d="M10.834 5.41732C10.834 6.60898 11.809 7.58398 13.0007 7.58398C14.1923 7.58398 15.1673 6.60898 15.1673 5.41732C15.1673 4.22565 14.1923 3.25065 13.0007 3.25065C11.809 3.25065 10.834 4.22565 10.834 5.41732Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                    <path d="M10.834 12.9993C10.834 14.191 11.809 15.166 13.0007 15.166C14.1923 15.166 15.1673 14.191 15.1673 12.9993C15.1673 11.8077 14.1923 10.8327 13.0007 10.8327C11.809 10.8327 10.834 11.8077 10.834 12.9993Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                </svg>    
-            </div>
-
-            <div id="item">
-                <div class="images">
-                    <img src="/image/figma.png" id="images2">
-                </div>
-                <div id="names">App School.fig
-                </div>
-                <div id="etelaat">10 GB - 10:09pm,10 Oct</div>
-                <svg id="hamber" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10.834 20.5833C10.834 21.775 11.809 22.75 13.0007 22.75C14.1923 22.75 15.1673 21.775 15.1673 20.5833C15.1673 19.3917 14.1923 18.4167 13.0007 18.4167C11.809 18.4167 10.834 19.3917 10.834 20.5833Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                    <path d="M10.834 5.41732C10.834 6.60898 11.809 7.58398 13.0007 7.58398C14.1923 7.58398 15.1673 6.60898 15.1673 5.41732C15.1673 4.22565 14.1923 3.25065 13.0007 3.25065C11.809 3.25065 10.834 4.22565 10.834 5.41732Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                    <path d="M10.834 12.9993C10.834 14.191 11.809 15.166 13.0007 15.166C14.1923 15.166 15.1673 14.191 15.1673 12.9993C15.1673 11.8077 14.1923 10.8327 13.0007 10.8327C11.809 10.8327 10.834 11.8077 10.834 12.9993Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                </svg>    
-            </div>
-
-            <div id="item">
-                <div class="images">
-                    <img src="/image/figma.png" id="images2">
-                </div>
-                <div id="names">App School.fig
-                </div>
-                <div id="etelaat">10 GB - 10:09pm,10 Oct</div>
-                <svg id="hamber" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10.834 20.5833C10.834 21.775 11.809 22.75 13.0007 22.75C14.1923 22.75 15.1673 21.775 15.1673 20.5833C15.1673 19.3917 14.1923 18.4167 13.0007 18.4167C11.809 18.4167 10.834 19.3917 10.834 20.5833Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                    <path d="M10.834 5.41732C10.834 6.60898 11.809 7.58398 13.0007 7.58398C14.1923 7.58398 15.1673 6.60898 15.1673 5.41732C15.1673 4.22565 14.1923 3.25065 13.0007 3.25065C11.809 3.25065 10.834 4.22565 10.834 5.41732Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                    <path d="M10.834 12.9993C10.834 14.191 11.809 15.166 13.0007 15.166C14.1923 15.166 15.1673 14.191 15.1673 12.9993C15.1673 11.8077 14.1923 10.8327 13.0007 10.8327C11.809 10.8327 10.834 11.8077 10.834 12.9993Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                </svg>    
-            </div>
-
-            <div id="item">
-                <div class="images">
-                    <img src="/image/figma.png" id="images2">
-                </div>
-                <div id="names">App School.fig
-                </div>
-                <div id="etelaat">10 GB - 10:09pm,10 Oct</div>
-                <svg id="hamber" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10.834 20.5833C10.834 21.775 11.809 22.75 13.0007 22.75C14.1923 22.75 15.1673 21.775 15.1673 20.5833C15.1673 19.3917 14.1923 18.4167 13.0007 18.4167C11.809 18.4167 10.834 19.3917 10.834 20.5833Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                    <path d="M10.834 5.41732C10.834 6.60898 11.809 7.58398 13.0007 7.58398C14.1923 7.58398 15.1673 6.60898 15.1673 5.41732C15.1673 4.22565 14.1923 3.25065 13.0007 3.25065C11.809 3.25065 10.834 4.22565 10.834 5.41732Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                    <path d="M10.834 12.9993C10.834 14.191 11.809 15.166 13.0007 15.166C14.1923 15.166 15.1673 14.191 15.1673 12.9993C15.1673 11.8077 14.1923 10.8327 13.0007 10.8327C11.809 10.8327 10.834 11.8077 10.834 12.9993Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                </svg>    
-            </div>
-
-            <div id="item">
-                <div class="images">
-                    <img src="/image/figma.png" id="images2">
-                </div>
-                <div id="names">App School.fig
-                </div>
-                <div id="etelaat">10 GB - 10:09pm,10 Oct</div>
-                <svg id="hamber" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10.834 20.5833C10.834 21.775 11.809 22.75 13.0007 22.75C14.1923 22.75 15.1673 21.775 15.1673 20.5833C15.1673 19.3917 14.1923 18.4167 13.0007 18.4167C11.809 18.4167 10.834 19.3917 10.834 20.5833Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                    <path d="M10.834 5.41732C10.834 6.60898 11.809 7.58398 13.0007 7.58398C14.1923 7.58398 15.1673 6.60898 15.1673 5.41732C15.1673 4.22565 14.1923 3.25065 13.0007 3.25065C11.809 3.25065 10.834 4.22565 10.834 5.41732Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                    <path d="M10.834 12.9993C10.834 14.191 11.809 15.166 13.0007 15.166C14.1923 15.166 15.1673 14.191 15.1673 12.9993C15.1673 11.8077 14.1923 10.8327 13.0007 10.8327C11.809 10.8327 10.834 11.8077 10.834 12.9993Z" stroke="#A3B2C7" stroke-width="1.18182"/>
-                </svg>    
-            </div>
-
-            <div id="item">
-                <div class="images">
-                    <img src="/image/figma.png" id="images2">
+                    <img src="{% static 'media/image/figma.png' %}" id="images2">
                 </div>
                 <div id="names">App School.fig
                 </div>
@@ -419,7 +249,7 @@
 
             <div id="item">
                 <div class="images">
-                    <img src="/image/figma.png" id="images2">
+                    <img src="{% static 'media/image/figma.png' %}" id="images2">
                 </div>
                 <div id="names">App School.fig
                 </div>
@@ -433,7 +263,7 @@
 
             <div id="item">
                 <div class="images">
-                    <img src="/image/figma.png" id="images2">
+                    <img src="{% static 'media/image/figma.png' %}" id="images2">
                 </div>
                 <div id="names">App School.fig
                 </div>
@@ -447,7 +277,21 @@
 
             <div id="item">
                 <div class="images">
-                    <img src="/image/figma.png" id="images2">
+                    <img src="{% static 'media/image/figma.png' %}" id="images2">
+                </div>
+                <div id="names">App School.fig
+                </div>
+                <div id="etelaat">10 GB - 10:09pm,10 Oct</div>
+                <svg id="hamber" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.834 20.5833C10.834 21.775 11.809 22.75 13.0007 22.75C14.1923 22.75 15.1673 21.775 15.1673 20.5833C15.1673 19.3917 14.1923 18.4167 13.0007 18.4167C11.809 18.4167 10.834 19.3917 10.834 20.5833Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                    <path d="M10.834 5.41732C10.834 6.60898 11.809 7.58398 13.0007 7.58398C14.1923 7.58398 15.1673 6.60898 15.1673 5.41732C15.1673 4.22565 14.1923 3.25065 13.0007 3.25065C11.809 3.25065 10.834 4.22565 10.834 5.41732Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                    <path d="M10.834 12.9993C10.834 14.191 11.809 15.166 13.0007 15.166C14.1923 15.166 15.1673 14.191 15.1673 12.9993C15.1673 11.8077 14.1923 10.8327 13.0007 10.8327C11.809 10.8327 10.834 11.8077 10.834 12.9993Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                </svg>    
+            </div>
+
+            <div id="item">
+                <div class="images">
+                    <img src="{% static 'media/image/figma.png' %}" id="images2">
                 </div>
                 <div id="names">App School.fig
                 </div>
@@ -462,7 +306,7 @@
 
             <div id="item">
                 <div class="images">
-                    <img src="/image/figma.png" id="images2">
+                    <img src="{% static 'media/image/figma.png' %}" id="images2">
                 </div>
                 <div id="names">App School.fig
                 </div>
@@ -476,7 +320,7 @@
 
             <div id="item">
                 <div class="images">
-                    <img src="/image/figma.png" id="images2">
+                    <img src="{% static 'media/image/figma.png' %}" id="images2">
                 </div>
                 <div id="names">App School.fig
                 </div>
@@ -490,7 +334,7 @@
 
             <div id="item">
                 <div class="images">
-                    <img src="/image/figma.png" id="images2">
+                    <img src="{% static 'media/image/figma.png' %}" id="images2">
                 </div>
                 <div id="names">App School.fig
                 </div>
@@ -504,7 +348,7 @@
 
             <div id="item">
                 <div class="images">
-                    <img src="/image/figma.png" id="images2">
+                    <img src="{% static 'media/image/figma.png' %}" id="images2">
                 </div>
                 <div id="names">App School.fig
                 </div>
@@ -518,7 +362,164 @@
 
             <div id="item">
                 <div class="images">
-                    <img src="/image/figma.png" id="images2">
+                    <img src="{% static 'media/image/figma.png' %}" id="images2">
+                </div>
+                <div id="names">App School.fig
+                </div>
+                <div id="etelaat">10 GB - 10:09pm,10 Oct</div>
+                <svg id="hamber" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.834 20.5833C10.834 21.775 11.809 22.75 13.0007 22.75C14.1923 22.75 15.1673 21.775 15.1673 20.5833C15.1673 19.3917 14.1923 18.4167 13.0007 18.4167C11.809 18.4167 10.834 19.3917 10.834 20.5833Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                    <path d="M10.834 5.41732C10.834 6.60898 11.809 7.58398 13.0007 7.58398C14.1923 7.58398 15.1673 6.60898 15.1673 5.41732C15.1673 4.22565 14.1923 3.25065 13.0007 3.25065C11.809 3.25065 10.834 4.22565 10.834 5.41732Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                    <path d="M10.834 12.9993C10.834 14.191 11.809 15.166 13.0007 15.166C14.1923 15.166 15.1673 14.191 15.1673 12.9993C15.1673 11.8077 14.1923 10.8327 13.0007 10.8327C11.809 10.8327 10.834 11.8077 10.834 12.9993Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                </svg>    
+            </div>
+
+            <div id="item">
+                <div class="images">
+                    <img src="{% static 'media/image/figma.png' %}" id="images2">
+                </div>
+                <div id="names">App School.fig
+                </div>
+                <div id="etelaat">10 GB - 10:09pm,10 Oct</div>
+                <svg id="hamber" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.834 20.5833C10.834 21.775 11.809 22.75 13.0007 22.75C14.1923 22.75 15.1673 21.775 15.1673 20.5833C15.1673 19.3917 14.1923 18.4167 13.0007 18.4167C11.809 18.4167 10.834 19.3917 10.834 20.5833Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                    <path d="M10.834 5.41732C10.834 6.60898 11.809 7.58398 13.0007 7.58398C14.1923 7.58398 15.1673 6.60898 15.1673 5.41732C15.1673 4.22565 14.1923 3.25065 13.0007 3.25065C11.809 3.25065 10.834 4.22565 10.834 5.41732Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                    <path d="M10.834 12.9993C10.834 14.191 11.809 15.166 13.0007 15.166C14.1923 15.166 15.1673 14.191 15.1673 12.9993C15.1673 11.8077 14.1923 10.8327 13.0007 10.8327C11.809 10.8327 10.834 11.8077 10.834 12.9993Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                </svg>    
+            </div>
+
+            <div id="item">
+                <div class="images">
+                    <img src="{% static 'media/image/figma.png' %}" id="images2">
+                </div>
+                <div id="names">App School.fig
+                </div>
+                <div id="etelaat">10 GB - 10:09pm,10 Oct</div>
+                <svg id="hamber" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.834 20.5833C10.834 21.775 11.809 22.75 13.0007 22.75C14.1923 22.75 15.1673 21.775 15.1673 20.5833C15.1673 19.3917 14.1923 18.4167 13.0007 18.4167C11.809 18.4167 10.834 19.3917 10.834 20.5833Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                    <path d="M10.834 5.41732C10.834 6.60898 11.809 7.58398 13.0007 7.58398C14.1923 7.58398 15.1673 6.60898 15.1673 5.41732C15.1673 4.22565 14.1923 3.25065 13.0007 3.25065C11.809 3.25065 10.834 4.22565 10.834 5.41732Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                    <path d="M10.834 12.9993C10.834 14.191 11.809 15.166 13.0007 15.166C14.1923 15.166 15.1673 14.191 15.1673 12.9993C15.1673 11.8077 14.1923 10.8327 13.0007 10.8327C11.809 10.8327 10.834 11.8077 10.834 12.9993Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                </svg>    
+            </div>
+
+            <div id="item">
+                <div class="images">
+                    <img src="{% static 'media/image/figma.png' %}" id="images2">
+                </div>
+                <div id="names">App School.fig
+                </div>
+                <div id="etelaat">10 GB - 10:09pm,10 Oct</div>
+                <svg id="hamber" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.834 20.5833C10.834 21.775 11.809 22.75 13.0007 22.75C14.1923 22.75 15.1673 21.775 15.1673 20.5833C15.1673 19.3917 14.1923 18.4167 13.0007 18.4167C11.809 18.4167 10.834 19.3917 10.834 20.5833Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                    <path d="M10.834 5.41732C10.834 6.60898 11.809 7.58398 13.0007 7.58398C14.1923 7.58398 15.1673 6.60898 15.1673 5.41732C15.1673 4.22565 14.1923 3.25065 13.0007 3.25065C11.809 3.25065 10.834 4.22565 10.834 5.41732Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                    <path d="M10.834 12.9993C10.834 14.191 11.809 15.166 13.0007 15.166C14.1923 15.166 15.1673 14.191 15.1673 12.9993C15.1673 11.8077 14.1923 10.8327 13.0007 10.8327C11.809 10.8327 10.834 11.8077 10.834 12.9993Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                </svg>    
+            </div>
+
+
+
+            <div id="item">
+                <div class="images">
+                    <img src="{% static 'media/image/figma.png' %}" id="images2">
+                </div>
+                <div id="names">App School.fig
+                </div>
+                <div id="etelaat">10 GB - 10:09pm,10 Oct</div>
+                <svg id="hamber" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.834 20.5833C10.834 21.775 11.809 22.75 13.0007 22.75C14.1923 22.75 15.1673 21.775 15.1673 20.5833C15.1673 19.3917 14.1923 18.4167 13.0007 18.4167C11.809 18.4167 10.834 19.3917 10.834 20.5833Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                    <path d="M10.834 5.41732C10.834 6.60898 11.809 7.58398 13.0007 7.58398C14.1923 7.58398 15.1673 6.60898 15.1673 5.41732C15.1673 4.22565 14.1923 3.25065 13.0007 3.25065C11.809 3.25065 10.834 4.22565 10.834 5.41732Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                    <path d="M10.834 12.9993C10.834 14.191 11.809 15.166 13.0007 15.166C14.1923 15.166 15.1673 14.191 15.1673 12.9993C15.1673 11.8077 14.1923 10.8327 13.0007 10.8327C11.809 10.8327 10.834 11.8077 10.834 12.9993Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                </svg>    
+            </div>
+
+            <div id="item">
+                <div class="images">
+                    <img src="{% static 'media/image/figma.png' %}" id="images2">
+                </div>
+                <div id="names">App School.fig
+                </div>
+                <div id="etelaat">10 GB - 10:09pm,10 Oct</div>
+                <svg id="hamber" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.834 20.5833C10.834 21.775 11.809 22.75 13.0007 22.75C14.1923 22.75 15.1673 21.775 15.1673 20.5833C15.1673 19.3917 14.1923 18.4167 13.0007 18.4167C11.809 18.4167 10.834 19.3917 10.834 20.5833Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                    <path d="M10.834 5.41732C10.834 6.60898 11.809 7.58398 13.0007 7.58398C14.1923 7.58398 15.1673 6.60898 15.1673 5.41732C15.1673 4.22565 14.1923 3.25065 13.0007 3.25065C11.809 3.25065 10.834 4.22565 10.834 5.41732Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                    <path d="M10.834 12.9993C10.834 14.191 11.809 15.166 13.0007 15.166C14.1923 15.166 15.1673 14.191 15.1673 12.9993C15.1673 11.8077 14.1923 10.8327 13.0007 10.8327C11.809 10.8327 10.834 11.8077 10.834 12.9993Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                </svg>    
+            </div>
+
+            <div id="item">
+                <div class="images">
+                    <img src="{% static 'media/image/figma.png' %}" id="images2">
+                </div>
+                <div id="names">App School.fig
+                </div>
+                <div id="etelaat">10 GB - 10:09pm,10 Oct</div>
+                <svg id="hamber" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.834 20.5833C10.834 21.775 11.809 22.75 13.0007 22.75C14.1923 22.75 15.1673 21.775 15.1673 20.5833C15.1673 19.3917 14.1923 18.4167 13.0007 18.4167C11.809 18.4167 10.834 19.3917 10.834 20.5833Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                    <path d="M10.834 5.41732C10.834 6.60898 11.809 7.58398 13.0007 7.58398C14.1923 7.58398 15.1673 6.60898 15.1673 5.41732C15.1673 4.22565 14.1923 3.25065 13.0007 3.25065C11.809 3.25065 10.834 4.22565 10.834 5.41732Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                    <path d="M10.834 12.9993C10.834 14.191 11.809 15.166 13.0007 15.166C14.1923 15.166 15.1673 14.191 15.1673 12.9993C15.1673 11.8077 14.1923 10.8327 13.0007 10.8327C11.809 10.8327 10.834 11.8077 10.834 12.9993Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                </svg>    
+            </div>
+
+
+            <div id="item">
+                <div class="images">
+                    <img src="{% static 'media/image/figma.png' %}" id="images2">
+                </div>
+                <div id="names">App School.fig
+                </div>
+                <div id="etelaat">10 GB - 10:09pm,10 Oct</div>
+                <svg id="hamber" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.834 20.5833C10.834 21.775 11.809 22.75 13.0007 22.75C14.1923 22.75 15.1673 21.775 15.1673 20.5833C15.1673 19.3917 14.1923 18.4167 13.0007 18.4167C11.809 18.4167 10.834 19.3917 10.834 20.5833Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                    <path d="M10.834 5.41732C10.834 6.60898 11.809 7.58398 13.0007 7.58398C14.1923 7.58398 15.1673 6.60898 15.1673 5.41732C15.1673 4.22565 14.1923 3.25065 13.0007 3.25065C11.809 3.25065 10.834 4.22565 10.834 5.41732Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                    <path d="M10.834 12.9993C10.834 14.191 11.809 15.166 13.0007 15.166C14.1923 15.166 15.1673 14.191 15.1673 12.9993C15.1673 11.8077 14.1923 10.8327 13.0007 10.8327C11.809 10.8327 10.834 11.8077 10.834 12.9993Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                </svg>    
+            </div>
+
+            <div id="item">
+                <div class="images">
+                    <img src="{% static 'media/image/figma.png' %}" id="images2">
+                </div>
+                <div id="names">App School.fig
+                </div>
+                <div id="etelaat">10 GB - 10:09pm,10 Oct</div>
+                <svg id="hamber" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.834 20.5833C10.834 21.775 11.809 22.75 13.0007 22.75C14.1923 22.75 15.1673 21.775 15.1673 20.5833C15.1673 19.3917 14.1923 18.4167 13.0007 18.4167C11.809 18.4167 10.834 19.3917 10.834 20.5833Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                    <path d="M10.834 5.41732C10.834 6.60898 11.809 7.58398 13.0007 7.58398C14.1923 7.58398 15.1673 6.60898 15.1673 5.41732C15.1673 4.22565 14.1923 3.25065 13.0007 3.25065C11.809 3.25065 10.834 4.22565 10.834 5.41732Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                    <path d="M10.834 12.9993C10.834 14.191 11.809 15.166 13.0007 15.166C14.1923 15.166 15.1673 14.191 15.1673 12.9993C15.1673 11.8077 14.1923 10.8327 13.0007 10.8327C11.809 10.8327 10.834 11.8077 10.834 12.9993Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                </svg>    
+            </div>
+
+            <div id="item">
+                <div class="images">
+                    <img src="{% static 'media/image/figma.png' %}" id="images2">
+                </div>
+                <div id="names">App School.fig
+                </div>
+                <div id="etelaat">10 GB - 10:09pm,10 Oct</div>
+                <svg id="hamber" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.834 20.5833C10.834 21.775 11.809 22.75 13.0007 22.75C14.1923 22.75 15.1673 21.775 15.1673 20.5833C15.1673 19.3917 14.1923 18.4167 13.0007 18.4167C11.809 18.4167 10.834 19.3917 10.834 20.5833Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                    <path d="M10.834 5.41732C10.834 6.60898 11.809 7.58398 13.0007 7.58398C14.1923 7.58398 15.1673 6.60898 15.1673 5.41732C15.1673 4.22565 14.1923 3.25065 13.0007 3.25065C11.809 3.25065 10.834 4.22565 10.834 5.41732Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                    <path d="M10.834 12.9993C10.834 14.191 11.809 15.166 13.0007 15.166C14.1923 15.166 15.1673 14.191 15.1673 12.9993C15.1673 11.8077 14.1923 10.8327 13.0007 10.8327C11.809 10.8327 10.834 11.8077 10.834 12.9993Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                </svg>    
+            </div>
+
+            <div id="item">
+                <div class="images">
+                    <img src="{% static 'media/image/figma.png' %}" id="images2">
+                </div>
+                <div id="names">App School.fig
+                </div>
+                <div id="etelaat">10 GB - 10:09pm,10 Oct</div>
+                <svg id="hamber" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10.834 20.5833C10.834 21.775 11.809 22.75 13.0007 22.75C14.1923 22.75 15.1673 21.775 15.1673 20.5833C15.1673 19.3917 14.1923 18.4167 13.0007 18.4167C11.809 18.4167 10.834 19.3917 10.834 20.5833Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                    <path d="M10.834 5.41732C10.834 6.60898 11.809 7.58398 13.0007 7.58398C14.1923 7.58398 15.1673 6.60898 15.1673 5.41732C15.1673 4.22565 14.1923 3.25065 13.0007 3.25065C11.809 3.25065 10.834 4.22565 10.834 5.41732Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                    <path d="M10.834 12.9993C10.834 14.191 11.809 15.166 13.0007 15.166C14.1923 15.166 15.1673 14.191 15.1673 12.9993C15.1673 11.8077 14.1923 10.8327 13.0007 10.8327C11.809 10.8327 10.834 11.8077 10.834 12.9993Z" stroke="#A3B2C7" stroke-width="1.18182"/>
+                </svg>    
+            </div>
+
+            <div id="item">
+                <div class="images">
+                    <img src="{% static 'media/image/figma.png' %}" id="images2">
                 </div>
                 <div id="names">App School.fig
                 </div>
@@ -538,5 +539,41 @@
         </div>
         
     </div>
+    
+{#    hamburger menu        #}
+    <div id="hamberMenu" class="main-container">
+      <div class="name-file-options">
+        <span class="app-school-fig">App School.fig</span>
+        <div class="option-list">
+          <div class="option">
+            <div class="icon-circle">
+              <div class="icons-line-share">
+                <div class="share"><div class="vector"></div></div>
+              </div>
+              <div class="ellipse"></div>
+            </div>
+            <span class="share-1">Share</span>
+          </div>
+          <div class="option-2">
+            <div class="icon-circle-3">
+              <div class="icons-line-download">
+                <div class="download"></div>
+              </div>
+              <div class="ellipse-4"></div>
+            </div>
+            <span class="download-5">Download</span>
+          </div>
+          <div class="option-6">
+            <div class="icon-circle-7">
+              <div class="icons-line-trash"><div class="trash"></div></div>
+              <div class="ellipse-8"></div>
+            </div>
+            <span class="delete">Delete</span>
+          </div>
+        </div>
+      </div>
+      <div class="bg"></div>
+    </div>
+
 </body>
 </html>

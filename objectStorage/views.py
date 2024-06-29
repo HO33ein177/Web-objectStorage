@@ -164,5 +164,5 @@ def View_List(request):
     return render(request, 'homePage.html')
 
 
-def uploadModal(request):
-    return render(request, "uploadModal.html")
+def ham(request):
+    return render(request, "hamburgerMenu.html")

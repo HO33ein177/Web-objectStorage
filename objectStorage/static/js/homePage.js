@@ -95,3 +95,14 @@ function handleFiles(files){
     for (let i = 0; i < files.length; i++)
     console.log(files.name)
 }
+
+let addPeopleModal = document.getElementById('addpeapelbox')
+function closeAddPeople(){
+    addPeopleModal.style.display = 'none';
+}
+
+
+let hamberMenu = document.getElementById('hamberMenu')
+function threeButtonMenu(){
+    hamberMenu.style.display = 'block';
+}
