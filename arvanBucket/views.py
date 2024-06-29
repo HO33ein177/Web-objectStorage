@@ -43,6 +43,7 @@ def authenticate_bucket(request):
 
     return JsonResponse({'error': 'Unhandled case'}, status=500)
 
+
 @csrf_exempt
 def create_bucket(request):
     logging.basicConfig(level=logging.INFO)
@@ -96,10 +97,6 @@ def init_bucket(request):
             logging.error(exc)
 
 
-
-
-
-
 @csrf_exempt
 def check_bucket_entity(request):
     logging.basicConfig(level=logging.INFO)
@@ -137,6 +134,7 @@ def check_bucket_entity(request):
         return JsonResponse({'message': 'Bucket exists'}, status=200)
 
     return JsonResponse({'error': 'Unhandled case'}, status=500)
+
 
 # Get the list of buckets in your user account
 
@@ -176,7 +174,8 @@ def check_bucket_list(request):
     if target_bucket_found:
         return JsonResponse({'buckets': bucket_list, 'message': f'Bucket {target_bucket_name} exists'}, status=200)
     else:
-        return JsonResponse({'buckets': bucket_list, 'message': f'Bucket {target_bucket_name} does not exist'}, status=404)
+        return JsonResponse({'buckets': bucket_list, 'message': f'Bucket {target_bucket_name} does not exist'},
+                            status=404)
 
     return JsonResponse({'error': 'Unhandled case'}, status=500)
 
@@ -268,36 +267,47 @@ def change_bucket_access_policy(request):
 
 @csrf_exempt
 def object_upload_in_bucket(request):
-    # Configure logging
-    logging.basicConfig(level=logging.INFO)
-    data = json.loads(request.body.decode('utf-8'))  # Ensure proper decoding of request body
-    bucket_name = data.get('bucket_name')
-    filePath = data.get('file_path')
-    file_name = data.get('file_name')
-    try:
-        s3_resource = boto3.resource(
-            's3',
-            endpoint_url='https://141vault141.s3.ir-tbz-sh1.arvanstorage.ir',
-            aws_access_key_id='c75bdfdb-a936-412e-a356-ae1f7ad82aee',
-            aws_secret_access_key='1c7d029f48b2f93a720272da0557732be8bcf108'
-        )
+    if request.method == 'POST':
+        # Configure logging
+        logging.basicConfig(level=logging.INFO)
+        # data = json.loads(request.body.decode('utf-8'))  # Ensure proper decoding of request body
+        bucket_name = request.POST.get('bucket_name')
+        file_name = request.POST.get('file_name')
+        filePath = request.POST.get('file_location')
 
-    except Exception as exc:
-        logging.error(exc)
-    else:
+        upload_dir = os.path.join(os.path.dirname(__file__), 'uploads')
+        if not os.path.exists(upload_dir):
+            os.makedirs(upload_dir)
+
+        relativePath = os.path.join(upload_dir, file_name)
+        filePath = os.path.abspath(relativePath)
+
+        print(f"Received file: {file_name}, bucket_name: {bucket_name}, file_location: {filePath}")
         try:
-            bucket = s3_resource.Bucket(bucket_name)
-            file_path = filePath
-            object_name = file_name
+            s3_resource = boto3.resource(
+                's3',
+                endpoint_url='https://141vault141.s3.ir-tbz-sh1.arvanstorage.ir',
+                aws_access_key_id='c75bdfdb-a936-412e-a356-ae1f7ad82aee',
+                aws_secret_access_key='1c7d029f48b2f93a720272da0557732be8bcf108'
+            )
 
-            with open(file_path, "rb") as file:
-                bucket.put_object(
-                    ACL='private',
-                    Body=file,
-                    Key=object_name
-                )
-        except ClientError as e:
-            logging.error(e)
+        except Exception as exc:
+            logging.error(exc)
+        else:
+            try:
+                bucket = s3_resource.Bucket(bucket_name)
+                file_path = filePath
+                object_name = file_name
+
+                with open(file_path, "rb") as file:
+                    bucket.put_object(
+                        ACL='private',
+                        Body=file,
+                        Key=object_name
+                    )
+                    return JsonResponse({'success': True})
+            except ClientError as e:
+                logging.error(e)
 
 
 def object_multipart_upload_in_bucket(request):
@@ -437,6 +447,7 @@ def get_object_list_from_bucket(request):
         except ClientError as e:
             logging.error(e)
 
+
 @csrf_exempt
 def object_delete_in_bucket(request):
     import boto3
@@ -544,8 +555,6 @@ def get_access_level_to_bucket(request):
 
 
 def set_access_level_to_bucket(request):
-
-
     # Configure logging
     logging.basicConfig(level=logging.INFO)
 

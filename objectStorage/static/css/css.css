@@ -387,25 +387,54 @@ h5{
     opacity: 50%;
 
 }
-#upload{
+.upload-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+
+#upload {
     width: 80px;
     height: 33px;
     border-radius: 25px;
     border: none;
     background-color: #7288fa;
     color: #fff;
-    font-family: poppinsm;
+    font-family: "Poppins", sans-serif; /* Ensure the correct font is used */
     font-size: 10px;
     padding-left: 20px;
     margin-left: 78px;
     cursor: pointer;
+    position: relative;
+    z-index: 1;
 }
+
+#fileInput {
+    position: absolute;
+    width: 80px;
+    height: 33px;
+    opacity: 0;
+    cursor: pointer;
+    left: 78px; /* Align with the upload button's left margin */
+    top: 0;
+    z-index: 2;
+}
+
+#fileName {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #333;
+}
+
 #bargiri{
     /* border: solid 1px #ff0000; */
     position: absolute;
     margin-top: 19px;
     width: 15px;
     margin-left: 88px;
+    z-index: 1000;
 }
 #prof{
     /* border: solid 1px #ff0000; */

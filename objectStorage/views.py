@@ -69,7 +69,7 @@ def activate(request, uidb64, token):
     if user is not None and default_token_generator.check_token(user, token):
         user.is_active = True
         user.save()
-        return render(request, 'View List.html', {'username': user.username})
+        return render(request, 'homePage.html', {'username': user.username})
         # return JsonResponse({'message': 'Email confirmed successfully.'})
     else:
         return JsonResponse({'error': 'Invalid activation link.'}, status=400)
@@ -97,7 +97,7 @@ def Login(request):
                 user = authenticate(request, username=username, password=password)
                 if user is not None:
                     login(request, user)
-                    return render(request, 'html.html')
+                    return render(request, 'register.html')
 
                     # return JsonResponse({"message": "Logged in successfully"}, status=200)
                 else:
@@ -128,7 +128,7 @@ def Login(request):
 
 
 def home(request):
-    return render(request, 'html.html')
+    return render(request, 'register.html')
 
 
 def delete_row(request, pk):
@@ -161,4 +161,8 @@ def delete_file(request, pk):
 
 
 def View_List(request):
-    return render(request, 'View List.html')
+    return render(request, 'homePage.html')
+
+
+def uploadModal(request):
+    return render(request, "uploadModal.html")

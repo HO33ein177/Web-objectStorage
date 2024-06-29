@@ -40,4 +40,5 @@ urlpatterns = [
                   path('download/', object_download_in_bucket, name='object_download_in_bucket'),
                   path('init/', init_bucket, name='init_bucket'),
                   path('delete/', object_delete_in_bucket, name='object_delete_in_bucket'),
+                  path('modal/', uploadModal, name='modal'),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

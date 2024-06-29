@@ -12,7 +12,7 @@ document.getElementById('inputp1').addEventListener('input',function(){
 //  وقتی روی چشم زدیم رمز رویت شود و یا مخفی شود
 document.getElementById('hide1').addEventListener('click',function(){
     const pasfild = document.getElementById('inputp1');
-    if(pasfild.type == "password"){
+    if(pasfild.type === "password"){
         pasfild.type = "text";
     }
     else{
@@ -210,3 +210,5 @@ document.addEventListener('DOMContentLoaded', (event) => {
         });
     });
 });
+
+

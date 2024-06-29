@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Documents view list</title>
     <link rel="stylesheet" href="{% static 'css/css.css' %}" >
-    <script defer="true" src="{% static 'js/js.js' %}"></script>
+    <script defer="true" src="{% static 'js/homePage.js' %}"></script>
 </head>
 <body>
     <div id="kadr1">
@@ -30,7 +30,13 @@
                 </clipPath>
                 </defs>
             </svg>
-            <button id="upload">Upload</button>
+            <button id="upload">
+                <span style="position: relative ;top:10px ; cursor: pointer">
+                    Upload
+                </span>
+            <input type="file" id="fileUploadInput"  style=" opacity: 0"/>
+            </button>
+{#            <button id="upload" style="">Upload</button>#}
             <div id="prof">
                 <img src="{% static 'media/image/profile.png' %}" id="profile">
                 <label id="name">{{ username }}</label>
