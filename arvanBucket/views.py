@@ -7,8 +7,12 @@ from boto3.s3.transfer import TransferConfig
 import boto3
 import logging
 from botocore.exceptions import ClientError
+from django.contrib.auth.models import User
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+
+
+# from .models import File
 
 
 @csrf_exempt
@@ -187,7 +191,7 @@ def delete_bucket(request):
     try:
         s3_resource = boto3.resource(
             's3',
-            endpoint_url='https://vault141.s3.ir-thr-at1.arvanstorage.ir',
+            endpoint_url='https://s3.ir-thr-at1.arvanstorage.ir',
             aws_access_key_id='c75bdfdb-a936-412e-a356-ae1f7ad82aee',
             aws_secret_access_key='1c7d029f48b2f93a720272da0557732be8bcf108'
         )
@@ -195,7 +199,7 @@ def delete_bucket(request):
         logging.error(exc)
     else:
         try:
-            bucket_name = 'vaultTest'
+            bucket_name = 'vault141'
             bucket = s3_resource.Bucket(bucket_name)
             bucket.delete()
         except ClientError as exc:
@@ -272,8 +276,12 @@ def object_upload_in_bucket(request):
         logging.basicConfig(level=logging.INFO)
         # data = json.loads(request.body.decode('utf-8'))  # Ensure proper decoding of request body
         bucket_name = request.POST.get('bucket_name')
+        # file = request.POST.get('file')
         file_name = request.POST.get('file_name')
         filePath = request.POST.get('file_location')
+        # fileSize = request.POST.get('file_size')
+        # print(type(file))
+        print(filePath)
 
         upload_dir = os.path.join(os.path.dirname(__file__), 'uploads')
         if not os.path.exists(upload_dir):
@@ -282,11 +290,11 @@ def object_upload_in_bucket(request):
         relativePath = os.path.join(upload_dir, file_name)
         filePath = os.path.abspath(relativePath)
 
-        print(f"Received file: {file_name}, bucket_name: {bucket_name}, file_location: {filePath}")
+        # print(f"Received file: {file_name}, bucket_name: {bucket_name}, file_location: {filePath}")
         try:
             s3_resource = boto3.resource(
                 's3',
-                endpoint_url='https://141vault141.s3.ir-tbz-sh1.arvanstorage.ir',
+                endpoint_url='https://s3.ir-tbz-sh1.arvanstorage.ir',
                 aws_access_key_id='c75bdfdb-a936-412e-a356-ae1f7ad82aee',
                 aws_secret_access_key='1c7d029f48b2f93a720272da0557732be8bcf108'
             )
@@ -300,6 +308,7 @@ def object_upload_in_bucket(request):
                 object_name = file_name
 
                 with open(file_path, "rb") as file:
+                    print(type(file))
                     bucket.put_object(
                         ACL='private',
                         Body=file,
@@ -469,7 +478,7 @@ def object_delete_in_bucket(request):
     try:
         s3_resource = boto3.resource(
             's3',
-            endpoint_url='https://vault141.s3.ir-thr-at1.arvanstorage.ir',
+            endpoint_url='https://s3.ir-thr-at1.arvanstorage.ir',
             aws_access_key_id='c75bdfdb-a936-412e-a356-ae1f7ad82aee',
             aws_secret_access_key='1c7d029f48b2f93a720272da0557732be8bcf108'
         )
@@ -478,8 +487,8 @@ def object_delete_in_bucket(request):
     else:
         try:
             # bucket
-            bucket_name = bucketName
-            object_name = fileName
+            bucket_name = 'vault141'
+            object_name = 'downloadfile.PDF'
 
             bucket = s3_resource.Bucket(bucket_name)
             object = bucket.Object(object_name)
@@ -487,6 +496,7 @@ def object_delete_in_bucket(request):
             response = object.delete(
                 VersionId='string',
             )
+            return response
         except ClientError as e:
             logging.error(e)
 

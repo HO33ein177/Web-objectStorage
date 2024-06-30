@@ -20,9 +20,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
         console.log("Sending files");
         const formData = new FormData();
-        formData.append('bucket_name', 'PersonalVault');
+        formData.append('bucket_name', '141vault141');
+        formData.append('file',file)
         formData.append('file_name', file.name);
-        formData.append('file_location', file.webkitRelativePath || file.name);
+        // formData.append('file_location', file.webkitRelativePath || file.name);
+        // formData.append('file_size',file.size)
+        console.log(file.size)
         fetch('/upload/', {
             method: 'POST',
             body: formData,
