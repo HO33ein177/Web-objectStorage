@@ -201,6 +201,7 @@ def object_upload_in_bucket(request):
                         Body=file,
                         Key=object_name
                     )
+                    get_object_list_from_bucket(request)
                     return JsonResponse({'success': True})
             except ClientError as e:
                 logging.error(e)
@@ -300,6 +301,7 @@ def get_object_list_from_bucket(request):
                     )
 
             return JsonResponse({'objects': objects_list})
+
 
         except ClientError as e:
             logging.error(f"ClientError: {e}")
