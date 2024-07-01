@@ -129,3 +129,10 @@ let closeHamMenu = document.getElementById('menuName')
 closeHamMenu.addEventListener('click',()=>{
     hamberMenu.style.display = 'none';
 })
+
+
+let shareButton = document.getElementById('shareButton')
+let shareModal = document.getElementById('addpeapelbox')
+shareButton.addEventListener('click',()=>{
+    shareModal.style.display = 'block';
+})

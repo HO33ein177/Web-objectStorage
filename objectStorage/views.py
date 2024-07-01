@@ -113,7 +113,7 @@ def Login(request):
                 user = authenticate(request, username=username, password=password)
                 if user is not None:
                     login(request, user)
-                    return JsonResponse({"message": "Logged in successfully"}, status=200)
+                    return render(request, 'register.html')
                 else:
                     return JsonResponse({'error': 'Invalid email or password'}, status=400)
         except json.JSONDecodeError:
@@ -163,3 +163,14 @@ def View_List(request):
 
 def ham(request):
     return render(request, "hamburgerMenu.html")
+
+
+@csrf_exempt
+def my_view(request):
+    if request.user.is_authenticated:
+        # Do something with the authenticated user
+        username = request.user.username
+        return HttpResponse(f'Hello, {username}! You are logged in.')
+    else:
+        # Handle anonymous users
+        return HttpResponse('Hello, Guest! Please log in.')

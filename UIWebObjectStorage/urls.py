@@ -41,5 +41,5 @@ urlpatterns = [
                   # path('init/', init_bucket, name='init_bucket'),
                   path('delete/', object_delete_in_bucket, name='object_delete_in_bucket'),
                   path('list/', get_object_list_from_bucket, name='get_object_list_from_bucket'),
-                  path('modal/', ham, name='modal'),
+                  path('modal/', my_view, name='modal'),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
