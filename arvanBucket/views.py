@@ -5,11 +5,14 @@ import boto3
 import logging
 from botocore.exceptions import ClientError
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.http import JsonResponse, HttpResponse
+from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from UIWebObjectStorage import settings
 from .models import File
 from arvanBucket import *
+
 
 def format_size(size_bytes):
     if size_bytes == 0:
@@ -240,7 +243,7 @@ def object_download_in_bucket(request):
 
 
 @csrf_exempt
-@login_required
+# @login_required
 def get_object_list_from_bucket(request):
     if request.method == 'POST':
         import boto3
@@ -283,15 +286,18 @@ def get_object_list_from_bucket(request):
                 relativePath = os.path.join(upload_dir, obj.key)
                 filePath = os.path.abspath(relativePath)
 
-                File.objects.create(
-                    name=obj.key,
-                    path=filePath,
-                    size=format_size(obj.size),
-                    icon=icon_path,
-                    owner=request.user,
-                    last_modified=obj.last_modified.isoformat(),
-                    file_type=file_type,
-                )
+                existing_file = File.objects.filter(name=obj.key)
+
+                if not existing_file:
+                    File.objects.create(
+                        name=obj.key,
+                        path=filePath,
+                        size=format_size(obj.size),
+                        icon=icon_path,
+                        owner=get_object_or_404(User, pk=48),
+                        last_modified=obj.last_modified.isoformat(),
+                        file_type=file_type,
+                    )
 
             return JsonResponse({'objects': objects_list})
 
@@ -301,7 +307,6 @@ def get_object_list_from_bucket(request):
         except Exception as e:
             logging.error(f"Unexpected error: {e}")
             return JsonResponse({'error': 'An unexpected error occurred'}, status=500)
-
 
 
 @csrf_exempt

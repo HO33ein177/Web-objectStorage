@@ -14,10 +14,7 @@ from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect
 from django.http import JsonResponse
 from django.contrib.auth.models import User
-import boto3
-import logging
-import logging
-from botocore.exceptions import ClientError
+from arvanBucket.models import *
 
 @csrf_exempt
 def SignUp(request):
@@ -157,11 +154,11 @@ def delete_file(request, pk):
             return JsonResponse({'error': str(e)}, status=400)
 
 
-# Arvan cloud Authentication and Connection
 
 
 def View_List(request):
-    return render(request, 'homePage.html')
+    file = File.objects.all()
+    return render(request, 'homePage.html', {'file': file})
 
 
 def ham(request):
