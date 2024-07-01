@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         console.log("Sending files");
         const formData = new FormData();
-        formData.append('bucket_name', 'vault141');
+        // formData.append('bucket_name', 'vault141');
         // formData.append('file',file)
         formData.append('file_name', file.name);
         formData.append('file_location', file.webkitRelativePath || file.name);

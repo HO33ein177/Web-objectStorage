@@ -22,7 +22,7 @@ from UIWebObjectStorage import settings
 from arvanBucket.views import *
 
 urlpatterns = [
-                  path('admin/', admin.site.urls),
+                  # path('admin/', admin.site.urls),
                   path('', home, name='home'),
                   path('home/', View_List, name='home'),
                   path('signup/', SignUp, name='signup'),
@@ -40,5 +40,6 @@ urlpatterns = [
                   path('download/', object_download_in_bucket, name='object_download_in_bucket'),
                   # path('init/', init_bucket, name='init_bucket'),
                   path('delete/', object_delete_in_bucket, name='object_delete_in_bucket'),
+                  path('list/', get_object_list_from_bucket, name='get_object_list_from_bucket'),
                   path('modal/', ham, name='modal'),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

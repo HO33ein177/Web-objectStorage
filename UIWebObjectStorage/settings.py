@@ -138,3 +138,4 @@ secret_access_key = '1c7d029f48b2f93a720272da0557732be8bcf108'
 tehran_endpoint_url = 'https://s3.ir-thr-at1.arvanstorage.ir'
 tabriz_endpoint_url = 'https://s3.ir-tbz-sh1.arvanstorage.ir'
 
+LOGIN_URL = '/login/'

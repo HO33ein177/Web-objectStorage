@@ -1,30 +1,53 @@
 import json
+import math
 import os
-import sys
-import threading
-from typing import Optional
-from boto3.s3.transfer import TransferConfig
 import boto3
 import logging
 from botocore.exceptions import ClientError
-from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from UIWebObjectStorage import settings
+from .models import File
+from arvanBucket import *
+
+def format_size(size_bytes):
+    if size_bytes == 0:
+        return "0B"
+    size_name = ("B", "KB", "MB", "GB", "TB")
+    i = int(math.floor(math.log(size_bytes, 1024)))
+    p = math.pow(1024, i)
+    s = round(size_bytes / p, 2)
+    return f"{s} {size_name[i]}"
 
 
-# from .models import File
+file_type_choices = {
+    'image': 'Image',
+    'video': 'Video',
+    'audio': 'Audio',
+    'document': 'Document',
+    'unknown': 'Unknown',
+}
+icon_paths = {
+    'image': 'C:/Users/Hosein/PycharmProjects/UIWebObjectStorage/arvanBucket/static/icons/image.png',
+    'video': 'C:/Users/Hosein/PycharmProjects/UIWebObjectStorage/arvanBucket/static/icons/video.png',
+    'audio': 'C:/Users/Hosein/PycharmProjects/UIWebObjectStorage/arvanBucket/static/icons/audio.png',
+    'document': 'C:/Users/Hosein/PycharmProjects/UIWebObjectStorage/arvanBucket/static/icons/document.png',
+    'unknown': 'C:/Users/Hosein/PycharmProjects/UIWebObjectStorage/arvanBucket/static/icons/unknown.png',
+}
 
 
-
-
-
-
-
-
-
-
-# Get the list of buckets in your user account
+def get_file_type(file_name):
+    if file_name.endswith(('.jpg', '.jpeg', '.png', '.gif')):
+        return 'image'
+    elif file_name.endswith(('.mp4', '.avi', '.mov')):
+        return 'video'
+    elif file_name.endswith(('.mp3', '.wav', '.aac')):
+        return 'audio'
+    elif file_name.endswith(('.pdf', '.doc', '.docx', '.xls', '.xlsx', '.txt')):
+        return 'document'
+    else:
+        return 'unknown'
 
 
 @csrf_exempt
@@ -90,8 +113,6 @@ def delete_bucket(request):
             logging.error(exc)
 
 
-
-
 @csrf_exempt
 def change_bucket_access_policy(request):
     # Configure logging
@@ -100,9 +121,9 @@ def change_bucket_access_policy(request):
     try:
         s3_resource = boto3.resource(
             's3',
-            endpoint_url='https://vault141.s3.ir-thr-at1.arvanstorage.ir',
-            aws_access_key_id='c75bdfdb-a936-412e-a356-ae1f7ad82aee',
-            aws_secret_access_key='1c7d029f48b2f93a720272da0557732be8bcf108'
+            endpoint_url=settings.tehran_endpoint_url,
+            aws_access_key_id=settings.access_key_id,
+            aws_secret_access_key=settings.secret_access_key
         )
 
     except Exception as exc:
@@ -138,7 +159,7 @@ def object_upload_in_bucket(request):
         # Configure logging
         logging.basicConfig(level=logging.INFO)
         # data = json.loads(request.body.decode('utf-8'))  # Ensure proper decoding of request body
-        bucket_name = request.POST.get('bucket_name')
+        # bucket_name = request.POST.get('bucket_name')
         # file = request.POST.get('file')
         file_name = request.POST.get('file_name')
         filePath = request.POST.get('file_location')
@@ -166,7 +187,7 @@ def object_upload_in_bucket(request):
             logging.error(exc)
         else:
             try:
-                bucket = s3_resource.Bucket(bucket_name)
+                bucket = s3_resource.Bucket(settings.bucket_name)
                 file_path = filePath
                 object_name = file_name
 
@@ -180,7 +201,6 @@ def object_upload_in_bucket(request):
                     return JsonResponse({'success': True})
             except ClientError as e:
                 logging.error(e)
-
 
 
 @csrf_exempt
@@ -197,7 +217,7 @@ def object_download_in_bucket(request):
             s3_resource = boto3.resource(
                 's3',
                 endpoint_url=settings.tehran_endpoint_url,
-                aws_access_key_id = settings.access_key_id,
+                aws_access_key_id=settings.access_key_id,
                 aws_secret_access_key=settings.secret_access_key
             )
         except Exception as exc:
@@ -219,35 +239,69 @@ def object_download_in_bucket(request):
                 logging.error(e)
 
 
+@csrf_exempt
+@login_required
 def get_object_list_from_bucket(request):
-    import boto3
-    import logging
-    from botocore.exceptions import ClientError
+    if request.method == 'POST':
+        import boto3
+        import logging
+        from botocore.exceptions import ClientError
 
-    # Configure logging
-    logging.basicConfig(level=logging.INFO)
+        # Configure logging
+        logging.basicConfig(level=logging.INFO)
 
-    try:
-        # S3 resource
-        s3_resource = boto3.resource(
-            's3',
-            endpoint_url='endpoint_url',
-            aws_access_key_id='c75bdfdb-a936-412e-a356-ae1f7ad82aee',
-            aws_secret_access_key='1c7d029f48b2f93a720272da0557732be8bcf108'
-        )
-
-    except Exception as exc:
-        logging.error(exc)
-    else:
         try:
-            bucket_name = 'bucket_name'
-            bucket = s3_resource.Bucket(bucket_name)
+            # S3 resource
+            s3_resource = boto3.resource(
+                's3',
+                endpoint_url=settings.tehran_endpoint_url,
+                aws_access_key_id=settings.access_key_id,
+                aws_secret_access_key=settings.secret_access_key
+            )
+        except Exception as exc:
+            logging.error(f"Failed to initialize S3 resource: {exc}")
+            return JsonResponse({'error': 'Failed to initialize S3 resource'}, status=500)
 
+        try:
+            bucket_name = settings.bucket_name
+            bucket = s3_resource.Bucket(bucket_name)
+            objects_list = []
             for obj in bucket.objects.all():
-                logging.info(f"object_name: {obj.key}, last_modified: {obj.last_modified}")
+                objects_list.append({
+                    'file_name': obj.key,
+                    'size': format_size(obj.size),
+                    'last_modified': obj.last_modified.isoformat()  # Ensure proper date formatting
+                })
+
+                file_type_key = get_file_type(obj.key)
+                file_type = file_type_choices[file_type_key]
+                icon_path = icon_paths[file_type_key]
+                upload_dir = os.path.join(os.path.dirname(__file__), 'uploads')
+                if not os.path.exists(upload_dir):
+                    os.makedirs(upload_dir)
+
+                relativePath = os.path.join(upload_dir, obj.key)
+                filePath = os.path.abspath(relativePath)
+
+                File.objects.create(
+                    name=obj.key,
+                    path=filePath,
+                    size=format_size(obj.size),
+                    icon=icon_path,
+                    owner=request.user,
+                    last_modified=obj.last_modified.isoformat(),
+                    file_type=file_type,
+                )
+
+            return JsonResponse({'objects': objects_list})
 
         except ClientError as e:
-            logging.error(e)
+            logging.error(f"ClientError: {e}")
+            return JsonResponse({'error': 'Failed to list objects from bucket'}, status=500)
+        except Exception as e:
+            logging.error(f"Unexpected error: {e}")
+            return JsonResponse({'error': 'An unexpected error occurred'}, status=500)
+
 
 
 @csrf_exempt
