@@ -13,6 +13,7 @@ from UIWebObjectStorage import settings
 from .models import File
 from arvanBucket import *
 
+logger = logging.getLogger(__name__)
 
 def format_size(size_bytes):
     if size_bytes == 0:
@@ -32,7 +33,7 @@ file_type_choices = {
     'unknown': 'Unknown',
 }
 icon_paths = {
-    'image': 'C:/Users/Hosein/PycharmProjects/UIWebObjectStorage/arvanBucket/static/icons/image.png',
+    'image': './static/icons/image.png',
     'video': 'C:/Users/Hosein/PycharmProjects/UIWebObjectStorage/arvanBucket/static/icons/video.png',
     'audio': 'C:/Users/Hosein/PycharmProjects/UIWebObjectStorage/arvanBucket/static/icons/audio.png',
     'document': 'C:/Users/Hosein/PycharmProjects/UIWebObjectStorage/arvanBucket/static/icons/document.png',
@@ -295,7 +296,7 @@ def get_object_list_from_bucket(request):
                         path=filePath,
                         size=format_size(obj.size),
                         icon=icon_path,
-                        owner=request.user,
+                        owner=get_object_or_404(User, pk=48),
                         last_modified=obj.last_modified.isoformat(),
                         file_type=file_type,
                     )
@@ -311,15 +312,15 @@ def get_object_list_from_bucket(request):
 
 
 @csrf_exempt
-def object_delete_in_bucket(request):
+def object_delete_in_bucket(file_name):
     import boto3
     import logging
     from botocore.exceptions import ClientError
 
     logging.basicConfig(level=logging.INFO)
-    data = json.loads(request.body.decode('utf-8'))  # Ensure proper decoding of request body
+    # data = json.loads(request.body.decode('utf-8'))  # Ensure proper decoding of request body
     # bucketName = data.get('bucket_name')
-    fileName = data.get('file_name')
+    fileName = file_name
 
     try:
         s3_resource = boto3.resource(
@@ -451,3 +452,29 @@ def set_access_level_to_bucket(request):
 
         except ClientError as e:
             logging.error(e)
+
+
+@csrf_exempt
+def delete(request):
+    import logging
+    try:
+        data = json.loads(request.body.decode('utf-8'))  # Ensure proper decoding of request body
+        file_name = data.get('file_name')
+
+        print(file_name, type(file_name))
+        if not file_name:
+            return JsonResponse({'error': 'No file name provided'}, status=400)
+
+        try:
+            file = File.objects.get(name=file_name)
+            object_id = file.id
+            # Perform the deletion logic here
+            # object_delete_in_bucket(file_name)
+            File.objects.filter(id=object_id).delete()
+            return JsonResponse({"successfully deleted": object_id})
+        except File.DoesNotExist:
+            return JsonResponse({"successfully deleted": None}, status=404)
+        except File.MultipleObjectsReturned:
+            return JsonResponse({'error': 'Multiple files found with the same name'}, status=400)
+    except json.JSONDecodeError:
+        return JsonResponse({'error': 'Invalid JSON'}, status=400)

@@ -193,10 +193,10 @@
                 <div class="images">
                     <img src={{ f.icon }} id="images2">
                 </div>
-                <div id="names">{{ f.name }}
+                <div class="classNamess" id="names">{{ f.name }}
                 </div>
                 <div id="etelaat">{{ f.size }} - {{ f.last_modified }}</div>
-                <svg id="hamber" onclick="threeButtonMenu()" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <svg id="hamber" onclick="threeButtonMenu(event)" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M10.834 20.5833C10.834 21.775 11.809 22.75 13.0007 22.75C14.1923 22.75 15.1673 21.775 15.1673 20.5833C15.1673 19.3917 14.1923 18.4167 13.0007 18.4167C11.809 18.4167 10.834 19.3917 10.834 20.5833Z" stroke="#A3B2C7" stroke-width="1.18182"/>
                     <path d="M10.834 5.41732C10.834 6.60898 11.809 7.58398 13.0007 7.58398C14.1923 7.58398 15.1673 6.60898 15.1673 5.41732C15.1673 4.22565 14.1923 3.25065 13.0007 3.25065C11.809 3.25065 10.834 4.22565 10.834 5.41732Z" stroke="#A3B2C7" stroke-width="1.18182"/>
                     <path d="M10.834 12.9993C10.834 14.191 11.809 15.166 13.0007 15.166C14.1923 15.166 15.1673 14.191 15.1673 12.9993C15.1673 11.8077 14.1923 10.8327 13.0007 10.8327C11.809 10.8327 10.834 11.8077 10.834 12.9993Z" stroke="#A3B2C7" stroke-width="1.18182"/>
@@ -564,7 +564,7 @@
             </div>
             <span class="download-5" style="cursor: pointer">Download</span>
           </div>
-          <div class="option-6">
+          <div class="option-6" onclick="removeFile()">
             <div class="icon-circle-7">
               <div class="icons-line-trash"><div class="trash"></div></div>
               <div class="ellipse-8"></div>

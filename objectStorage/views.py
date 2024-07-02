@@ -1,7 +1,8 @@
 import json
 import re
 
-from django.contrib.auth import authenticate, login, get_user_model
+from django.contrib.auth import authenticate, login, get_user_model, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponse, JsonResponse
@@ -15,6 +16,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from arvanBucket.models import *
+
 
 @csrf_exempt
 def SignUp(request):
@@ -94,7 +96,7 @@ def Login(request):
                 user = authenticate(request, username=username, password=password)
                 if user is not None:
                     login(request, user)
-                    return render(request, 'register.html')
+                    return render(request, 'homepage.html')
 
                     # return JsonResponse({"message": "Logged in successfully"}, status=200)
                 else:
@@ -113,7 +115,7 @@ def Login(request):
                 user = authenticate(request, username=username, password=password)
                 if user is not None:
                     login(request, user)
-                    return render(request, 'register.html')
+                    return render(request, 'homepage.html')
                 else:
                     return JsonResponse({'error': 'Invalid email or password'}, status=400)
         except json.JSONDecodeError:
@@ -154,8 +156,7 @@ def delete_file(request, pk):
             return JsonResponse({'error': str(e)}, status=400)
 
 
-
-
+# @login_required
 def View_List(request):
     file = File.objects.all()
     return render(request, 'homePage.html', {'file': file})
@@ -174,3 +175,6 @@ def my_view(request):
     else:
         # Handle anonymous users
         return HttpResponse('Hello, Guest! Please log in.')
+
+def logout_view(request):
+    logout(request)

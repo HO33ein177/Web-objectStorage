@@ -106,13 +106,77 @@ function closeAddPeople(){
 
 
 let hamberMenu = document.getElementById('hamberMenu')
-function threeButtonMenu(){
+function getNamesInnerHtml() {
+    // Select all elements with the class "names"
+    const nameElements = document.querySelectorAll('.classNamess');
+
+    // Initialize an empty array to store the innerHTML
+    let namesArray = [];
+
+    // Loop through the NodeList and push the innerHTML to the array
+    nameElements.forEach(element => {
+        namesArray.push(element.innerHTML.trim());
+    });
+
+    // Log the array to the console (for demonstration purposes)
+    console.log(namesArray);
+
+    return namesArray;
+}
+getNamesInnerHtml()
+
+let itemName= ''
+const menuName = document.getElementById('menuName')
+function threeButtonMenu(e){
+    // console.log(e.target, e.currentTarget)
+    itemName = e.target.previousElementSibling.previousElementSibling.textContent;
+    menuName.innerHTML = itemName
+    console.log(itemName)
     hamberMenu.style.display = 'block';
 }
+function removeFile(){
+    sendItemNameToServer(itemName)
+}
+
+
+const csrftoken = getCookie('csrftoken');
+function sendItemNameToServer(itemName) {
+    console.log(itemName)
+    const formData = new FormData();
+    formData.append('file_name', itemName);
+    fetch('/remove/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'  // Ensure you have the CSRF token in your context
+        },
+        body: formData,
+    })
+    .then(response => response.json())
+    .then(result => {
+        console.log(itemName);
+        if (result.status === 'success') {
+            console.log(result.message);
+            // Optionally hide or remove the item from the DOM
+            // e.target.closest('.objectItem').style.display = 'none';
+        } else {
+            console.error(result.message);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+
+
+
+
+
 
 let item = document.getElementById('item');
 let items =document.getElementsByClassName('objectItem')
-console.log(items)
+// console.log(items)
 function openMenu(){
         hamberMenu.style.display = 'block';
 

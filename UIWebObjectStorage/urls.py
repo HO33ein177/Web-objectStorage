@@ -20,6 +20,11 @@ from objectStorage.views import *
 from django.conf.urls.static import static
 from UIWebObjectStorage import settings
 from arvanBucket.views import *
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
+from django.contrib.auth import views as auth_views
 
 urlpatterns = [
                   # path('admin/', admin.site.urls),
@@ -42,4 +47,8 @@ urlpatterns = [
                   path('delete/', object_delete_in_bucket, name='object_delete_in_bucket'),
                   path('list/', get_object_list_from_bucket, name='get_object_list_from_bucket'),
                   path('modal/', my_view, name='modal'),
+                  path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+                  path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+                  path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+                  path('remove/', delete, name='delete_in_delete'),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
