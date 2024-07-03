@@ -212,12 +212,13 @@ def object_upload_in_bucket(request):
 def object_download_in_bucket(request):
     if request.method == 'POST':
         logging.basicConfig(level=logging.INFO)
-        data = json.loads(request.body.decode('utf-8'))  # Ensure proper decoding of request body
+        if request.content_type == 'application/json':
+            data = json.loads(request.body.decode('utf-8'))
+            file_name = data.get('file_name')
+        else:
+            file_name = request.POST.get('file_name')
 
-        file_name = data.get('file_name')
-
-        # print(f"Received file: {file_name}, bucket_name: {bucket_name}")
-
+        print(file_name, type(file_name))
         try:
             s3_resource = boto3.resource(
                 's3',
@@ -240,8 +241,10 @@ def object_download_in_bucket(request):
                     object_name,
                     download_path
                 )
+                return JsonResponse({'success': "file downloaded"}, status=200)
             except ClientError as e:
                 logging.error(e)
+                return JsonResponse({'error': "file not found"}, status=404)
 
 
 @csrf_exempt
@@ -457,24 +460,30 @@ def set_access_level_to_bucket(request):
 @csrf_exempt
 def delete(request):
     import logging
-    try:
-        data = json.loads(request.body.decode('utf-8'))  # Ensure proper decoding of request body
-        file_name = data.get('file_name')
-
-        print(file_name, type(file_name))
-        if not file_name:
-            return JsonResponse({'error': 'No file name provided'}, status=400)
-
+    if request.method == 'POST':
         try:
-            file = File.objects.get(name=file_name)
-            object_id = file.id
-            # Perform the deletion logic here
-            # object_delete_in_bucket(file_name)
-            File.objects.filter(id=object_id).delete()
-            return JsonResponse({"successfully deleted": object_id})
-        except File.DoesNotExist:
-            return JsonResponse({"successfully deleted": None}, status=404)
-        except File.MultipleObjectsReturned:
-            return JsonResponse({'error': 'Multiple files found with the same name'}, status=400)
-    except json.JSONDecodeError:
-        return JsonResponse({'error': 'Invalid JSON'}, status=400)
+            if request.content_type == 'application/json':
+                data = json.loads(request.body.decode('utf-8'))
+                file_name = data.get('file_name')
+            else:
+                file_name = request.POST.get('file_name')
+
+            print(file_name, type(file_name))
+            if not file_name:
+                return JsonResponse({'error': 'No file name provided'}, status=400)
+
+            try:
+                file = File.objects.get(name=file_name)
+                object_id = file.id
+                # Perform the deletion logic here
+                object_delete_in_bucket(file_name)
+                File.objects.filter(id=object_id).delete()
+                return JsonResponse({"status": 'success', "message": "File successfully deleted"})
+            except File.DoesNotExist:
+                return JsonResponse({"status": 'error', "message": "File not found"}, status=400)
+            except File.MultipleObjectsReturned:
+                return JsonResponse({'status': 'error', 'message': 'Multiple files found with the same name'}, status=405)
+        except json.JSONDecodeError:
+            return JsonResponse({'status': 'error', 'message': 'Invalid JSON'}, status=400)
+    else:
+            return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)

@@ -193,8 +193,7 @@
                 <div class="images">
                     <img src={{ f.icon }} id="images2">
                 </div>
-                <div class="classNamess" id="names">{{ f.name }}
-                </div>
+                <div class="classNamess" id="names">{{f.name}}</div>
                 <div id="etelaat">{{ f.size }} - {{ f.last_modified }}</div>
                 <svg id="hamber" onclick="threeButtonMenu(event)" width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M10.834 20.5833C10.834 21.775 11.809 22.75 13.0007 22.75C14.1923 22.75 15.1673 21.775 15.1673 20.5833C15.1673 19.3917 14.1923 18.4167 13.0007 18.4167C11.809 18.4167 10.834 19.3917 10.834 20.5833Z" stroke="#A3B2C7" stroke-width="1.18182"/>
@@ -555,7 +554,7 @@
             </div>
             <span class="share-1" style="cursor: pointer">Share</span>
           </div>
-          <div class="option-2">
+          <div class="option-2" onclick="downloadFile()">
             <div class="icon-circle-3">
               <div class="icons-line-download">
                 <div class="download"></div>

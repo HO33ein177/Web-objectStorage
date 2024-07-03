@@ -125,7 +125,7 @@ function getNamesInnerHtml() {
 }
 getNamesInnerHtml()
 
-let itemName= ''
+let itemName= ""
 const menuName = document.getElementById('menuName')
 function threeButtonMenu(e){
     // console.log(e.target, e.currentTarget)
@@ -134,40 +134,79 @@ function threeButtonMenu(e){
     console.log(itemName)
     hamberMenu.style.display = 'block';
 }
+
 function removeFile(){
     sendItemNameToServer(itemName)
 }
 
-
-const csrftoken = getCookie('csrftoken');
-function sendItemNameToServer(itemName) {
-    console.log(itemName)
-    const formData = new FormData();
-    formData.append('file_name', itemName);
-    fetch('/remove/', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': '{{ csrf_token }}'  // Ensure you have the CSRF token in your context
-        },
-        body: formData,
-    })
-    .then(response => response.json())
-    .then(result => {
-        console.log(itemName);
-        if (result.status === 'success') {
-            console.log(result.message);
-            // Optionally hide or remove the item from the DOM
-            // e.target.closest('.objectItem').style.display = 'none';
-        } else {
-            console.error(result.message);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
+function downloadFile(){
+    download(itemName)
 }
 
+
+const csrftoken = getCookie('csrftoken');
+function sendItemNameToServer(item_name) {
+    let itemName = String(item_name)
+    let dataFile= new FormData()
+    dataFile.append('file_name', itemName)
+
+    console.log(typeof itemName)
+    const data = {
+    file_name: itemName,
+};
+
+fetch('/remove/', {
+    method: 'POST',
+        headers: {
+            'X-CSRFToken': csrftoken // Use the CSRF token retrieved earlier
+        },
+    body: dataFile,
+})
+.then(response => response.json())
+.then(result => {
+    console.log(typeof itemName);
+    if (result.status === 'success') {
+        console.log(result.message);
+        // Optionally hide or remove the item from the DOM
+        // e.target.closest('.objectItem').style.display = 'none';
+    } else {
+        console.error(result.message);
+    }
+})
+.catch(error => console.error('Error:', error));
+}
+
+
+function download(item_name) {
+    let itemName = String(item_name)
+    let dataFile= new FormData()
+    dataFile.append('file_name', itemName)
+
+    console.log(typeof itemName)
+    const data = {
+    file_name: itemName,
+};
+
+fetch('/download/', {
+    method: 'POST',
+        headers: {
+            'X-CSRFToken': csrftoken // Use the CSRF token retrieved earlier
+        },
+    body: dataFile,
+})
+.then(response => response.json())
+.then(result => {
+    console.log(typeof itemName);
+    if (result.status === 'success') {
+        console.log(result.message);
+        // Optionally hide or remove the item from the DOM
+        // e.target.closest('.objectItem').style.display = 'none';
+    } else {
+        console.error(result.message);
+    }
+})
+.catch(error => console.error('Error:', error));
+}
 
 
 
