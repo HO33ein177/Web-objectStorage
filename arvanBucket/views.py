@@ -15,6 +15,7 @@ from arvanBucket import *
 
 logger = logging.getLogger(__name__)
 
+
 def format_size(size_bytes):
     if size_bytes == 0:
         return "0B"
@@ -299,7 +300,7 @@ def get_object_list_from_bucket(request):
                         path=filePath,
                         size=format_size(obj.size),
                         icon=icon_path,
-                        owner=get_object_or_404(User, pk=48),
+                        owner=get_object_or_404(User, pk=57),
                         last_modified=obj.last_modified.isoformat(),
                         file_type=file_type,
                     )
@@ -482,8 +483,9 @@ def delete(request):
             except File.DoesNotExist:
                 return JsonResponse({"status": 'error', "message": "File not found"}, status=400)
             except File.MultipleObjectsReturned:
-                return JsonResponse({'status': 'error', 'message': 'Multiple files found with the same name'}, status=405)
+                return JsonResponse({'status': 'error', 'message': 'Multiple files found with the same name'},
+                                    status=405)
         except json.JSONDecodeError:
             return JsonResponse({'status': 'error', 'message': 'Invalid JSON'}, status=400)
     else:
-            return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)
+        return JsonResponse({'status': 'error', 'message': 'Invalid request method'}, status=405)

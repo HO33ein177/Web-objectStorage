@@ -137,10 +137,12 @@ function threeButtonMenu(e){
 
 function removeFile(){
     sendItemNameToServer(itemName)
+    hamberMenu.style.display = 'none'
 }
 
 function downloadFile(){
     download(itemName)
+    hamberMenu.style.display = 'none'
 }
 
 
