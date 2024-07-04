@@ -300,7 +300,7 @@ def get_object_list_from_bucket(request):
                         path=filePath,
                         size=format_size(obj.size),
                         icon=icon_path,
-                        owner=get_object_or_404(User, pk=57),
+                        owner=get_object_or_404(User, pk=48),
                         last_modified=obj.last_modified.isoformat(),
                         file_type=file_type,
                     )

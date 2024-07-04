@@ -81,10 +81,12 @@ def Login(request):
             data = json.loads(request.body.decode('utf-8'))  # Ensure proper decoding of request body
             text = data.get('text')
             email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+
             if re.match(email_regex, text):
                 email = data.get('text')
                 password = data.get('password')
-
+                print('email')
+                print(email, password)
                 if not email or not password:
                     return JsonResponse({'error': 'Email or password is empty'}, status=400)
 
@@ -96,14 +98,15 @@ def Login(request):
                 user = authenticate(request, username=username, password=password)
                 if user is not None:
                     login(request, user)
-                    return render(request, 'homepage.html')
+                    # return render(request, 'homepage.html')
 
-                    # return JsonResponse({"message": "Logged in successfully"}, status=200)
+                    return JsonResponse({"message": "Logged in successfully"}, status=200)
                 else:
                     return JsonResponse({'error': 'Invalid email or password'}, status=400)
             else:
                 username = data.get('text')
                 password = data.get('password')
+                print(username, password)
                 # print(f"username: {username}")
                 # print(f"type: {type(username)}")
                 # print(f"password: {password}")
