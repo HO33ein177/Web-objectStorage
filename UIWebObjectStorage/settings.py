@@ -171,3 +171,6 @@ tehran_endpoint_url = 'https://s3.ir-thr-at1.arvanstorage.ir'
 tabriz_endpoint_url = 'https://s3.ir-tbz-sh1.arvanstorage.ir'
 
 LOGIN_URL = '/login/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'

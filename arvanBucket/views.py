@@ -33,17 +33,18 @@ file_type_choices = {
     'document': 'Document',
     'unknown': 'Unknown',
 }
+
 icon_paths = {
-    'image': './static/icons/image.png',
-    'video': 'C:/Users/Hosein/PycharmProjects/UIWebObjectStorage/arvanBucket/static/icons/video.png',
-    'audio': 'C:/Users/Hosein/PycharmProjects/UIWebObjectStorage/arvanBucket/static/icons/audio.png',
-    'document': 'C:/Users/Hosein/PycharmProjects/UIWebObjectStorage/arvanBucket/static/icons/document.png',
-    'unknown': 'C:/Users/Hosein/PycharmProjects/UIWebObjectStorage/arvanBucket/static/icons/unknown.png',
+    'image': '../static/icons/image.png',
+    'video': '../static/icons/video.png',
+    'audio': '../static/icons/audio.png',
+    'document': '../static/icons/document.png',
+    'unknown': '../static/icons/unknown.png',
 }
 
 
 def get_file_type(file_name):
-    if file_name.endswith(('.jpg', '.jpeg', '.png', '.gif')):
+    if file_name.endswith(('.jpg', '.jpeg', '.png', '.gif', '.webp')):
         return 'image'
     elif file_name.endswith(('.mp4', '.avi', '.mov')):
         return 'video'
